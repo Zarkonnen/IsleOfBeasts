@@ -56,9 +56,10 @@ h1 {
 	border: 2px solid #e7c48c;
 	border-radius: 1em;
 	cursor: pointer;
+	font-weight: bold;
 }
 
-.challengeButton, .optionButton {
+.optionButton {
 	display: block;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -70,6 +71,10 @@ h1 {
 	border: 2px solid #e7c48c;
 	border-radius: 1em;
 	cursor: pointer;
+}
+
+.optionText {
+	font-weight: bold;
 }
 
 .challengeChance, .challengeDanger {
@@ -98,6 +103,6 @@ h1 {
 }
 
 
-.actionButton:hover, .optionButton:hover, .challengeButton:hover {
+.actionButton:hover, .optionButton:hover {
 	background: #fbfbfb;
 }

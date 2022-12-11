@@ -27,19 +27,7 @@
 <div class="block">
 {{text}}
 {{#each options}}
-<span class="optionButton" id="o{{this.id}}">{{this.text}}</span>
-{{/each}}
-</div>
-</script>
-
-<script id="_challenge" type="text/x-handlebars-template">
-<div class="block">
-{{text}}
-{{#if evt}}
-<span class="challengeButton" >Cancel</span>
-{/if}}
-{{#each options}}
-<span class="challengeButton" id="o{{this.id}}">{{this.name}}<span class="challengeChance">{{this.chance}}</span><span class="challengeDanger">{{this.danger}}</span></span>
+<span class="optionButton" id="o{{this.id}}"><span class="optionText">{{this.text}}</span><span class="challengeChance">{{this.chanceText}}</span><span class="challengeDanger">{{this.dangerText}}</span></span>
 {{/each}}
 </div>
 </script>

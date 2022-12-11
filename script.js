@@ -3,7 +3,6 @@ q.population = 131;
 q.food = 307;
 q.happy = 20;
 q.arousal = 25;
-q.items = [{name: "Try"}];
 
 var statNames = {population: "Population", "food": "Food"};
 
@@ -17,39 +16,32 @@ updatePrevs();
 
 var t = {};
 function start() {
-	["stats", "actions", "event", "challenge", "outcome"].forEach(n => {
+	["stats", "actions", "event", "outcome"].forEach(n => {
 		t[n] = Handlebars.compile(document.getElementById("_" + n).innerHTML);
 	});
 	render();
 	
-	doEvent({
+	ev({
 		text: "Test event",
 		options: [
 			{
 				text: "Gain food",
 				run: () => {
 					q.food += 100;
-					doOutcome("You get some food.");
+					out("You get some food.");
 				}
 			},
 			{
 				text: "Gamble",
-				run: () => {
-					doChallenge({
-						text: "Gamble for food!",
-						chance: (o) => {
-							return 50;
-						},
-						outcome: (o, success, dmg) => {
-							if (success) {
-								q.food += 200;
-								return "You gained extra food!";
-							} else {
-								q.food -= 100;
-								return "You lost food!";
-							}
-						}
-					})
+				chance: () => { return 50; },
+				run: (success) => {
+					if (success) {
+						q.food += 200;
+						out("You gained extra food!");
+					} else {
+						q.food -= 100;
+						out("You lost food!");
+					}
 				}
 			}
 		]
@@ -63,10 +55,8 @@ function render() {
 	}
 	content += rOutcome();
 	content += rEvent();
-	content += rChallenge();
 	$("body").html(content);
 	wireEvent();
-	wireChallenge();
 	updatePrevs();
 }
 
@@ -129,41 +119,22 @@ function rActions() {
 }
 
 function rEvent() {
-	if (!q.evt || q.challenge) { return ""; }
+	if (!q.evt) { return ""; }
 	var options = q.evt.options.filter(o => o.check ? o.check() : true);
 	for (var i = 0; i < options.length; i++) {
 		options[i].id = i;
+		options[i].chanceText = options[i].chance ? chanceText(options[i].chance()) : "";
+		options[i].dangerText = options[i].danger ? dangerText(options[i].danger()) : "";
 	}
 	return t.event({text: q.evt.text, options: options});
 }
 
 function wireEvent() {
-	if (!q.evt || q.challenge) { return; }
+	if (!q.evt) { return; }
 	var options = q.evt.options.filter(o => o.check ? o.check() : true);
 	var i = 0;
 	options.forEach(o => {
-		$("#o" + i).click(() => { o.run(); render(); });
-		i++;
-	});
-}
-
-function rChallenge() {
-	if (!q.challenge) { return ""; }
-	var options = q.items.filter(o => q.challenge.check ? q.challenge.check(o) : true);
-	for (var i = 0; i < options.length; i++) {
-		options[i].id = i;
-		options[i].chance = chanceText(q.challenge.chance(options[i]));
-		options[i].danger = dangerText(q.challenge.danger ? q.challenge.danger(options[i]) : 0);
-	}
-	return t.challenge({text: q.challenge.text, options: options, evt: q.evt});
-}
-
-function wireChallenge() {
-	if (!q.challenge) { return; }
-	var options = q.items.filter(o => q.challenge.check ? q.challenge.check(o) : true);
-	var i = 0;
-	options.forEach(o => {
-		$("#o" + i).click(() => challengeResponse(o));
+		$("#o" + i).click(() => pickOption(o));
 		i++;
 	});
 }
@@ -178,32 +149,18 @@ function turn() {
 	render();
 }
 
-function doEvent(e) {
-	q.challenge = null;
+function ev(e) {
+	q.outcome = null;
 	q.evt = e;
 	render();
 }
 
-function backOut() {
-	q.challenge = null;
-	render();
-}
-
-function doChallenge(c) {
-	q.challenge = c;
-	render();
-}
-
-function doOutcome(o) {
+function out(o) {
 	q.outcome = o;
-	q.challenge = null;
 	q.evt = null;
 	render();
 }
 
-function challengeResponse(o) {
-	var ch = q.challenge;
-	q.challenge = null;
-	q.outcome = ch.outcome(o, Math.random() * 100 <= ch.chance(o), Math.random() * 100 <= ch.danger ? ch.danger(o) : 0);
-	render();
+function pickOption(o) {
+	o.run(Math.random() * 100 < (o.chance ? o.chance() : 100), Math.random() * 100 < (o.danger ? o.danger() : 100));
 }
