@@ -1,0 +1,103 @@
+@font-face {
+	font-family: Macondo;
+	src: url('Macondo-Regular.ttf');
+}
+
+body {
+	background: #1b444a;
+	font-family: Macondo;
+	color: #fdedcb;
+	font-size: 16pt;
+}
+
+h1 {
+	display: block;
+	text-align: center;
+}
+
+.block, .darkBlock {
+	display: block;
+	margin: auto;
+	margin-bottom: 1em;
+}
+
+.darkBlock {
+	border: 2px solid #1b444a;
+	width: 42em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.block {
+	background: #f6deb8;
+	border: 2px solid #e7c48c;
+	color: #052f3f;
+	padding: 1em;
+	width: 40em;
+}
+
+.statTitle {
+	font-weight: bold;
+	margin-right: 0.5em;
+}
+
+.statValue {
+	margin-right: 1em;
+}
+
+.actionButton {
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-right: 1em;
+	background: #fdedcb;
+	color: #052f3f;
+	border: 2px solid #e7c48c;
+	border-radius: 1em;
+	cursor: pointer;
+}
+
+.challengeButton, .optionButton {
+	display: block;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	margin-top: 1em;
+	background: #fdedcb;
+	color: #052f3f;
+	border: 2px solid #e7c48c;
+	border-radius: 1em;
+	cursor: pointer;
+}
+
+.challengeChance, .challengeDanger {
+	margin-left: 1em;
+}
+
+.up {
+	color: #5a6f5e;
+	margin-right: 1em;
+	margin-left: -0.5em;
+}
+
+.up::before {
+	color: #857748;
+	content: '+';
+}
+
+.down {
+	color: #e85423;
+	margin-right: 1em;
+	margin-left: -0.5em;
+}
+
+.same {
+	display: none;
+}
+
+
+.actionButton:hover, .optionButton:hover, .challengeButton:hover {
+	background: #fbfbfb;
+}

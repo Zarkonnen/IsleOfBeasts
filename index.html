@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Isle of Beasts</title>
+		<link rel="stylesheet" href="style.css"> 
+        <script src="jquery-3.1.1.min.js"></script>
+        <script src="handlebars.min-v4.7.7.js"></script>
+        <script src="script.js"></script>
+
+<script id="_stats" type="text/x-handlebars-template">
+<div class="block">
+{{#each stats}}
+<span class="statTitle">{{this.t}}</span><span class="statValue">{{this.v}}</span><span class="{{this.flavor}}">{{this.delta}}</span>
+{{/each}}
+</div>
+</script>
+
+<script id="_actions" type="text/x-handlebars-template">
+<div class="darkBlock">
+{{#each actions}}
+<span class="actionButton" onClick="{{this.f}}()">{{this.t}}</span>
+{{/each}}
+</div>
+</script>
+
+<script id="_event" type="text/x-handlebars-template">
+<div class="block">
+{{text}}
+{{#each options}}
+<span class="optionButton" id="o{{this.id}}">{{this.text}}</span>
+{{/each}}
+</div>
+</script>
+
+<script id="_challenge" type="text/x-handlebars-template">
+<div class="block">
+{{text}}
+{{#if evt}}
+<span class="challengeButton" >Cancel</span>
+{/if}}
+{{#each options}}
+<span class="challengeButton" id="o{{this.id}}">{{this.name}}<span class="challengeChance">{{this.chance}}</span><span class="challengeDanger">{{this.danger}}</span></span>
+{{/each}}
+</div>
+</script>
+
+<script id="_outcome" type="text/x-handlebars-template">
+<div class="block">
+{{text}}
+</div>
+</script>
+
+	</head>
+	<body>
+		<script>$(start);</script>
+	</body>
+</html>
