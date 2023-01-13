@@ -5,6 +5,10 @@
 		<link rel="stylesheet" href="style.css"> 
         <script src="jquery-3.1.1.min.js"></script>
         <script src="handlebars.min-v4.7.7.js"></script>
+        <script src="events.js"></script>
+        <script src="explore.js"></script>
+        <script src="misc.js"></script>
+        <script src="actions.js"></script>
         <script src="script.js"></script>
 
 <script id="_stats" type="text/x-handlebars-template">
@@ -16,7 +20,7 @@
 </script>
 
 <script id="_actions" type="text/x-handlebars-template">
-<div class="darkBlock">
+<div class="darkBlock actions">
 {{#each actions}}
 <span class="actionButton" onClick="{{this.f}}()">{{this.t}}</span>
 {{/each}}
@@ -25,16 +29,16 @@
 
 <script id="_event" type="text/x-handlebars-template">
 <div class="block">
-{{text}}
+<span class="text">{{{text}}}</span>
 {{#each options}}
-<span class="optionButton" id="o{{this.id}}"><span class="optionText">{{this.text}}</span><span class="challengeChance">{{this.chanceText}}</span><span class="challengeDanger">{{this.dangerText}}</span></span>
+<span class="optionButton" id="o{{this.id}}"><span class="optionText">{{this.text}}</span><span class="{{this.chanceStyle}}">{{this.chanceText}}</span><span class="{{this.dangerStyle}}">{{this.dangerText}}</span></span>
 {{/each}}
 </div>
 </script>
 
 <script id="_outcome" type="text/x-handlebars-template">
 <div class="block">
-{{text}}
+<span class="text">{{{text}}}</span>
 </div>
 </script>
 

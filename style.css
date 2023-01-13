@@ -3,6 +3,11 @@
 	src: url('Macondo-Regular.ttf');
 }
 
+@font-face {
+	font-family: CreteRound;
+	src: url('CreteRound-Regular.ttf');
+}
+
 body {
 	background: #1b444a;
 	font-family: Macondo;
@@ -13,6 +18,22 @@ body {
 h1 {
 	display: block;
 	text-align: center;
+}
+
+.block img {
+	width: 15em;
+	margin-right: 1em;
+	margin-bottom: 1em;
+	float: left;
+	border: 2px solid #e7c48c;
+}
+
+.actions {
+	line-height: 3;
+}
+
+.text {
+	font-family: CreteRound;
 }
 
 .block, .darkBlock {
@@ -34,15 +55,18 @@ h1 {
 	color: #052f3f;
 	padding: 1em;
 	width: 40em;
+	line-height: 1.3;
 }
 
 .statTitle {
 	font-weight: bold;
 	margin-right: 0.5em;
+	white-space: nowrap;
 }
 
 .statValue {
 	margin-right: 1em;
+	white-space: nowrap;
 }
 
 .actionButton {
@@ -57,9 +81,11 @@ h1 {
 	border-radius: 1em;
 	cursor: pointer;
 	font-weight: bold;
+	white-space: nowrap;
 }
 
 .optionButton {
+	clear: both;
 	display: block;
 	padding-left: 1em;
 	padding-right: 1em;
@@ -79,6 +105,11 @@ h1 {
 
 .challengeChance, .challengeDanger {
 	margin-left: 1em;
+}
+
+.challengeDanger {
+	margin-left: 1em;
+	color: #e85423;
 }
 
 .up {
