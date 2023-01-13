@@ -1976,7 +1976,7 @@ var events = [
 		options: [
 			{
 				text: "Wait it out within the town walls",
-				success: () => { return q.food * 8 / q.population + q.defenses * 5; },
+				success: () => { return q.food * 7 / q.population + q.defenses * 5; },
 				check: () => { return q.walls; },
 				run: (success) => {
 					if (success) {

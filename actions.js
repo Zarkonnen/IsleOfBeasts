@@ -260,7 +260,7 @@ var houses = {
 		{
 			text: "A cozy group of houses much like back in the old country.",
 			run: () => {
-				q.happy += 10;
+				q.happy += 15;
 				q.houses = true;
 				done();
 			}
@@ -269,7 +269,7 @@ var houses = {
 			text: "A tight, easily defensible cluster of dwellings.",
 			run: () => {
 				q.arousal -= 5;
-				q.happy += 5;
+				q.happy += 3;
 				q.defenses++;
 				q.houses = true;
 				done();
@@ -279,7 +279,7 @@ var houses = {
 			text: "A carefully laid-out group of workshops and living quarters.",
 			run: () => {
 				q.happy += 5;
-				q.effectiveness += 7;
+				q.effectiveness += 12;
 				q.houses = true;
 				done();
 			}
@@ -326,7 +326,6 @@ var hall = {
 			run: () => {
 				q.hall = true;
 				q.happy += 5;
-				q.houses = true;
 				q.effectiveness += 5;
 				out("The people easily construct a small but functional hall, which will serve as the centre of the village social life.");
 			}
@@ -343,7 +342,7 @@ var temple = {
 	options: [
 		{
 			text: "Ornate and magnificent",
-			success: () => { return strength() - 125 + q.tools * 25; },
+			success: () => { return strength() - 100 + q.tools * 25; },
 			run: (success, harm) => {
 				q.temple = true;
 				if (q.bones) {
