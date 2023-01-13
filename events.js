@@ -1406,7 +1406,7 @@ var events = [
 	},
 	{
 		name: "the second crime, prison",
-		check: () => { return q.punishment && q.punishment == "indenture" && !q.twoThieves; },
+		check: () => { return q.punishment && q.punishment == "prison" && !q.twoThieves; },
 		show: ["eshling", "gure"],
 		text: "Another theft is brought before the council. This time, two Eshling siblings have conspired to break into Gure storerooms, making away with pelt coats and adornments, which they then foolishly wore, alerting the village to their crime.<br><br>Pater Sara of the Eshlings asks the council to be lenient: the siblings are known to be somewhat simple, and may not understand the magnitude of their crime.<br><br>Mater Alice of the Gure asks for the council to apply the established punishment of imprisonment.",
 		options: [
