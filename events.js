@@ -2454,7 +2454,7 @@ var events = [
 	},
 	{
 		name: "serf revolt",
-		check: () => { return q.indenture >= 3 && q.arousal > 40 && q.happy < 60 && q.indentureCommon && q.turn > 16; },
+		check: () => { return q.indenture >= 2 && q.arousal > 40 && q.happy < 60 && q.indentureCommon && q.turn > 16; },
 		important: () => { return q.arousal > 60 && q.happy < 40; },
 		show: [],
 		text: "As the practice of indenture has spread, an ever larger part of the people have found themselves forced into service for ever more spurious reasons, and treated as little more than slaves. At long last, their anger boils over. They assemble in a mob before the village hall and demand that the council abolish the practice and free them. The family heads, who have profited greatly from their servants, are loath to do so, but they are also afraid.",
