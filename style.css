@@ -10,6 +10,8 @@
 
 body {
 	background: #1b444a;
+	background-image: url('bg.png');
+	background-size: 100%;
 	font-family: Macondo;
 	color: #fdedcb;
 	font-size: 16pt;
