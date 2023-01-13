@@ -856,7 +856,7 @@ var explore = [
 		options: [
 			{
 				text: "Kill the next creature that comes by",
-				danger: () => { return 100 - strength() / 4 - q.weapons * 20; },
+				danger: () => { return 100 - strength() / 4 - q.weapons * 16; },
 				run: (success, harm) => {
 					if (harm) {
 						q.arousal -= 5;
@@ -924,7 +924,7 @@ var explore = [
 		options: [
 			{
 				text: "Fight",
-				danger: () => { return q.bimaneStrength - 10 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return q.bimaneStrength - 10 - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					if (harm) {
@@ -966,7 +966,7 @@ var explore = [
 		options: [
 			{
 				text: "Fight",
-				danger: () => { return q.bimaneStrength - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return q.bimaneStrength - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					if (harm) {
@@ -1008,7 +1008,7 @@ var explore = [
 		options: [
 			{
 				text: "Fight",
-				danger: () => { return q.robedOneStrength - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return q.robedOneStrength - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOnePrevInteraction = "violent";
 					if (harm) {
@@ -1338,7 +1338,7 @@ var explore = [
 		options: [
 			{
 				text: "Fight it.",
-				danger: () => { return 200 - strength() - q.weapons * 20; },
+				danger: () => { return 200 - strength() - q.weapons * 15; },
 				run: (success, harm) => {
 					if (harm) {
 						q.population -= 7;
@@ -1489,7 +1489,7 @@ var explore = [
 			},
 			{
 				text: "Attack the creatures before they can do any harm.",
-				danger: () => { return 90 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 90 - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanesEncountered = true;
 					q.bimaneRelations--;
@@ -1509,7 +1509,7 @@ var explore = [
 			},
 			{
 				text: "Ignore them and walk past.",
-				success: () => { return 20 + q.weapons * 20 + q.bimaneRelations * 30; },
+				success: () => { return 20 + q.weapons * 12 + q.bimaneRelations * 30; },
 				run: (success) => {
 					q.bimanesEncountered = true;
 					if (success) {
@@ -1595,7 +1595,7 @@ var explore = [
 			},
 			{
 				text: "Attack the creatures before they can do any harm.",
-				danger: () => { return 100 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 100 - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOnesEncountered = true;
 					q.robedOneRelations--;
@@ -1616,7 +1616,7 @@ var explore = [
 			},
 			{
 				text: "Ignore them and walk past.",
-				success: () => { return 20 + q.weapons * 20 + q.robedOneRelations * 30; },
+				success: () => { return 20 + q.weapons * 12 + q.robedOneRelations * 30; },
 				run: (success) => {
 					q.robedOnesEncountered = true;
 					if (success) {
@@ -1693,7 +1693,7 @@ var explore = [
 			},
 			{
 				text: "Approach them and demand tribute.",
-				danger: () => { return 100 + q.bimaneStrength * 2 - strength() * 2 - q.weapons * 25; },
+				danger: () => { return 100 + q.bimaneStrength * 2 - strength() * 2 - q.weapons * 18; },
 				run: (success, harm) => {
 					q.bimaneVillage = true;
 					if (harm) {
@@ -1714,7 +1714,7 @@ var explore = [
 			},
 			{
 				text: "Attack the bimanes, seeking to kill as many as possible.",
-				danger: () => { return q.bimaneStrength + 10 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return q.bimaneStrength + 10 - q.weapons * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimaneVillage = true;
 					q.bimaneRelations--;
@@ -1786,7 +1786,7 @@ var explore = [
 			},
 			{
 				text: "Approach them and demand tribute.",
-				danger: () => { return 100 + q.robedOneStrength * 2 - strength() * 2 - q.weapons * 25; },
+				danger: () => { return 100 + q.robedOneStrength * 2 - strength() * 2 - q.weapons * 20; },
 				run: (success, harm) => {
 					q.robedOneVillage = true;
 					q.robedOneRelations--;
@@ -1808,7 +1808,7 @@ var explore = [
 			},
 			{
 				text: "Attack the robed ones, seeking to kill as many as possible.",
-				danger: () => { return q.robedOneStrength + 20 - q.weapons * 25 - strength() / 4 - q.codgers * 15 - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return q.robedOneStrength + 20 - q.weapons * 20 - strength() / 4 - q.codgers * 15 - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOneVillage = true;
 					q.robedOneRelations--;
@@ -1879,7 +1879,7 @@ var explore = [
 				}
 			},
 			{
-				text: "Gaze back into the eyes.",
+				text: "Ignore them.",
 				run: () => {
 					q.eyestalksSeen = true;
 					q.exploration++;
@@ -1926,7 +1926,7 @@ var explore = [
 				}
 			},
 			{
-				text: "A bountiful land ripe for settlement.",
+				text: "This is a bountiful land ripe for settlement.",
 				run: () => {
 					q.exploration++;
 					q.effectiveness += 5;
@@ -2059,7 +2059,7 @@ var robedOneDelegation = {
 		},
 		{
 			text: "Demand tribute.",
-			danger: () => { return 90 + q.robedOneStrength * 2 - strength() * 2 - q.weapons * 25; },
+			danger: () => { return 90 + q.robedOneStrength * 2 - strength() * 2 - q.weapons * 20; },
 			run: (success, harm) => {
 				q.robedOneRelations--;
 				if (harm) {
@@ -2090,7 +2090,7 @@ var robedOneRaid = {
 	options: [
 		{
 			text: "Attack them, seeking to kill as many as possible.",
-			danger: () => { return q.robedOneStrength + 80 - q.weapons * 20 - strength() - q.codgers * 15 - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+			danger: () => { return q.robedOneStrength + 80 - q.weapons * 15 - strength() - q.codgers * 15 - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 			run: (success, harm) => {
 				q.robedOneRelations--;
 				q.robedOnePrevInteraction = "violent";
@@ -2274,7 +2274,7 @@ var bimaneDelegation = {
 		},
 		{
 			text: "Demand tribute.",
-			danger: () => { return 80 + q.bimaneStrength * 2 - strength() * 2 - q.weapons * 25; },
+			danger: () => { return 80 + q.bimaneStrength * 2 - strength() * 2 - q.weapons * 20; },
 			run: (success, harm) => {
 				if (harm) {
 					q.bimanePrevInteraction = "violent";
@@ -2306,7 +2306,7 @@ var bimaneRaid = {
 	options: [
 		{
 			text: "Seek to kill as many as possible.",
-			danger: () => { return q.bimaneStrength + 60 - q.weapons * 20 - strength() - (q.codgerFighters ? q.codgers * 5 : 0) - (q.blademouthFighters ? 8 + q.blademouths * 8 : 0) - q.bimaneAttackPrep * 25; },
+			danger: () => { return q.bimaneStrength + 60 - q.weapons * 15 - strength() - (q.codgerFighters ? q.codgers * 5 : 0) - (q.blademouthFighters ? 8 + q.blademouths * 8 : 0) - q.bimaneAttackPrep * 25; },
 			run: (success, harm) => {
 				q.bimaneAttackPrep = 0;
 				q.bimaneRelations--;
@@ -2337,7 +2337,7 @@ var bimaneRaid = {
 		},
 		{
 			text: "Seek to plunder their herds and valuables.",
-			danger: () => { return q.bimaneStrength + 40 - q.weapons * 15 - strength() - (q.blademouthFighters ? 8 + q.blademouths * 8 : 0) - q.bimaneAttackPrep * 25; },
+			danger: () => { return q.bimaneStrength + 40 - q.weapons * 12 - strength() - (q.blademouthFighters ? 8 + q.blademouths * 8 : 0) - q.bimaneAttackPrep * 25; },
 			run: (success, harm) => {
 				q.bimaneAttackPrep = 0;
 				q.bimaneRelations--;
@@ -2362,7 +2362,7 @@ var bimaneRaid = {
 		{
 			text: "Seek to capture one of them for study.",
 			check: () => { return !q.bimanePrisoner; },
-			danger: () => { return q.bimaneStrength / 2 + 30 - strength() / 2 - q.weapons * 10; },
+			danger: () => { return q.bimaneStrength / 2 + 30 - strength() / 2 - q.weapons * 8; },
 			run: (success, harm) => {
 				q.bimanePrevInteraction = "nearly violent";
 				if (harm) {

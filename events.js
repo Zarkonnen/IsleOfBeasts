@@ -59,8 +59,10 @@ var difficultyEvent = {
 		{
 			text: "Tough but survivable",
 			run: () => {
-				q.difficulty = -30;
+				q.difficulty = -25;
 				q.showStats = true;
+				q.healthPerTurn = 2;
+				q.moodPerTurn = 1;
 				out(startEndText);
 			}
 		},
@@ -69,14 +71,18 @@ var difficultyEvent = {
 			run: () => {
 				q.difficulty = -15;
 				q.showStats = true;
+				q.healthPerTurn = 1;
+				q.moodPerTurn = 0;
 				out(startEndText);
 			}
 		},
 		{
 			text: "A daily struggle",
 			run: () => {
-				q.difficulty = 0;
+				q.difficulty = -5;
 				q.showStats = true;
+				q.healthPerTurn = 0;
+				q.moodPerTurn = -1;
 				out(startEndText);
 			}
 		},
@@ -241,7 +247,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 85 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 85 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -265,7 +271,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 105 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 105 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -289,7 +295,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 125 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 125 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -313,7 +319,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 115 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 115 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -337,7 +343,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 110 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 110 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -668,7 +674,7 @@ var events = [
 			},
 			{
 				text: "Attempt to abolish the practice of bride prices",
-				success: () => { return 40 + q.law * 20 + q.equality * 20 - q.familyTies * 20 - q.tradition * 30; },
+				success: () => { return 45 + q.law * 20 + q.equality * 20 - q.familyTies * 20 - q.tradition * 30; },
 				run: (success) => {
 					if (success) {
 						q.equality++;
@@ -1144,7 +1150,7 @@ var events = [
 			},
 			{
 				text: "Commission a large mural in the village hall that shows people of all the families standing together.",
-				success: () => { return q.tools * 20 + strength() / 2 + q.forage * 10; },
+				success: () => { return -10 + q.tools * 20 + strength() / 2 + q.forage * 10; },
 				run: (success) => {
 					if (success) {
 						q.equality++;
@@ -1981,7 +1987,7 @@ var events = [
 			},
 			{
 				text: "Use weapons and fire to burn it away",
-				success: () => { return -100 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 30 : 0) + q.tools * 5 + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				success: () => { return -100 + strength() / 2 + q.weapons * 15 + (q.spindrakeFire ? 30 : 0) + q.tools * 5 + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
 						var text = "Whatever this creature might be, it's made of flesh and blood, and your warriors have experience with killing monsters. They pour out of the village gates and hack at the writhing coils of flesh";
@@ -2004,7 +2010,7 @@ var events = [
 			{
 				text: "Don concealing robes to hide from the eyes",
 				check: () => { return q.robedOneEyes; },
-				success: () => { return -20 + q.law * 30 - q.tradition * 10; },
+				success: () => { return 10 + q.law * 30 - q.tradition * 10 + q.equality * 10; },
 				run: (success) => {
 					if (success) {
 						win("As the Robed Ones explained, the eyes hate unshaped people, but they can be deceived. With a heavy heart, your people don concealing robes and wait. After a few hours, the eye-stalks start retreating, slithering back into the ground. Eventually, you get used to this way of living, hiding your forms, speaking in whispers, safe from the gaze of the isle.");
@@ -2024,7 +2030,7 @@ var events = [
 								{
 									text: "Nimble creatures like blademouths",
 									check: () => { return q.blademouths; },
-									success: () => { return -20 + q.blademouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -50 + q.blademouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into slender furred beings, like beautiful horned monkeys. When they show themselves to the eye stalks, they waver and retreat.<br><br>Now begins a new era for the people, of running through the woods and playing and joy.");
@@ -2036,7 +2042,7 @@ var events = [
 								{
 									text: "Tough burrowers like codgers",
 									check: () => { return q.codgers; },
-									success: () => { return -20 + q.codgers * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -50 + q.codgers * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large-clawed lizards. They burrow underground and wait for the eye stalks to wither, and when they resurface, the isle is again full of life.<br><br>Now begins a new era for the people, who now dwell underground in cosy tunnels with great hearths.");
@@ -2048,7 +2054,7 @@ var events = [
 								{
 									text: "Gentle herbivores like woolmouths",
 									check: () => { return q.woolmouths; },
-									success: () => { return -20 + q.woolmouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -50 + q.woolmouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large feathered beasts of friendly countenance. They show themselves to the eye stalks, which gaze upon them and then retreat, allowing the people to spill out into the meadows.<br><br>Now begins a new era for the people, one of calm grazing and the singing of songs under the beautiful sun.");
@@ -2060,7 +2066,7 @@ var events = [
 								{
 									text: "Elegant fliers like spindrakes",
 									check: () => { return q.spindrakes; },
-									success: () => { return -20 + q.spindrakes * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -50 + q.spindrakes * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large feathered bats. They take flight and leave for the safety of the mountaintops, waiting until the eye stalks wither and retreat.<br><br>Now begins a new era for the people, where they flit about in the air, glorying in acrobatic displays.");
@@ -2072,7 +2078,7 @@ var events = [
 								{
 									text: "A shape that lets them keep their dexterity, like bimanes",
 									check: () => { return q.bimanePlague; },
-									success: () => { return -20 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -40 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into spider-like beings with many dextrous limbs. They will have to make new clothes and adapt their tools a little, but they will be able to make art and machines the like of which have never been seen before. The eye stalks soon fade away now that they have no more unshaped humans to hunt.<br><br>Now begins a new era for the people, one of art and industry and ingenuity, where they will build great towers and plumb the secrets of creation.");
@@ -2083,7 +2089,7 @@ var events = [
 								},
 								{
 									text: "A new, better shape, superior to everything",
-									success: () => { return -20 + q.shaping * 12 + q.humanShaping * 12; },
+									success: () => { return -40 + q.shaping * 12 + q.humanShaping * 12; },
 									run: (success) => {
 										if (success) {
 											win("The shapers mutter that superiority can mean any number of things, but they confer, and then begin their art. The next day, the people wake up a scintillating many-eyed centaurs, fast and strong and wise - and the eye-stalks, seeing this, retreat back into the ground.<br><br>Now begins a new era for the people, one of resplendent glory on this magnificent isle.");
@@ -2101,7 +2107,7 @@ var events = [
 			},
 			{
 				text: "Build a ship to escape the isle",
-				success: () => { return 5 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 15 : 0) + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				success: () => { return 5 + strength() / 2 + q.weapons * 15 + (q.spindrakeFire ? 15 : 0) + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
 						ev({
@@ -2135,7 +2141,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 120 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 120 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					q.fights++;
@@ -2163,7 +2169,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 130 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 130 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					q.fights++;
@@ -2191,7 +2197,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 130 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 130 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					q.fights++;
@@ -2219,7 +2225,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 120 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 120 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOnePrevInteraction = "violent";
 					q.fights++;
@@ -2247,7 +2253,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 125 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 125 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOnePrevInteraction = "violent";
 					q.fights++;
@@ -2275,7 +2281,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 130 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 130 - q.weapons * 12 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.robedOnePrevInteraction = "violent";
 					q.fights++;
@@ -2410,7 +2416,7 @@ var events = [
 		name: "family society",
 		check: () => { return q.familyTies >= 4 && q.happy > 70 && q.temple; },
 		show: [],
-		run: () => { q.tradition++; q.effectiveness += 8; q.arousal -= 5; },
+		run: () => { q.tradition++; q.effectiveness += 4; q.arousal -= 5; q.health += 8; },
 		text: "When the people were exiled to the isle, the intent was to break them, to destroy who they are. But they built their dwellings and their hearth-rooms, and through the guidance of the family matriarchs and patriarchs, they are thriving. Each man and woman knows that they have a place, and that they are loved.",
 		options: [
 			{
@@ -2436,7 +2442,7 @@ var events = [
 		name: "brutal serfdom",
 		check: () => { return q.indenture >= 3 && q.happy < 80 && q.indentureCommon && q.turn > 14; },
 		show: [],
-		run: () => { q.effectiveness += 12; q.equality -= 3; q.tradition--; },
+		run: () => { q.effectiveness += 12; q.equality -= 3; q.health -= 5; q.tradition--; },
 		text: "The practice of indenture has now become so widespread that a large part of the people are held in that state. Many of them have accumulated so many years of service that they will never be free again. Indentured servants are openly traded between families, and ever flimsier pretexts are concocted to force more people into service. It is slavery by another name, but the well-to-do members of the families profit too much from it for it to be challenged.",
 		options: [
 			{
@@ -2474,7 +2480,7 @@ var events = [
 			},
 			{
 				text: "Direct the warriors to disperse the mob",
-				danger: () => { return 80 - q.weapons * 25; },
+				danger: () => { return 80 - q.weapons * 20; },
 				run: (success, harm) => {
 					if (harm) {
 						q.arousal += 10;

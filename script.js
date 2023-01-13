@@ -63,6 +63,8 @@ q.walls = false;
 q.reinforcedWalls = false;
 q.humanShaping = 0;
 q.difficulty = -15;
+q.moodPerTurn = 0;
+q.healthPerTurn = 1;
 
 var nextPickEvent = false;
 var nextDoTurn = false;
@@ -332,9 +334,9 @@ function foodDelta() {
 	var d = -15;
 	d += Math.ceil(strength() / 8);
 	d += q.forage * 10;
-	d += q.woolmouths * (q.woolmouthMeat ? 20 : 10);
-	d += q.codgers * 5;
-	d += q.blademouths * 5;
+	d += q.woolmouths * (q.woolmouthMeat ? 12 : 8);
+	d += q.codgers * 4;
+	d += q.blademouths * 4;
 	d += q.spindrakes * (q.spindrakeRiders ? 10 : 5);
 	d -= q.population / 2;
 	d -= q.food / 20; // Spoilage.
@@ -344,7 +346,8 @@ function foodDelta() {
 function turn() {
 	q.turn++;
 	q.food += foodDelta();
-	q.health += q.medicine + 1;
+	q.health += q.medicine + q.healthPerTurn;
+	q.happy += q.moodPerTurn;
 	if (!q.houses) {
 		q.health -= 1;
 	}
