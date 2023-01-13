@@ -92,7 +92,7 @@ function start() {
 
 function render() {
 	if (finished) {
-		var content = "<h1>Isle of Beasts</h1>" + rOutcome(); // TODO: Restart button
+		var content = "<h1>Isle of Beasts</h1>" + rOutcome() + '<div class="darkBlock"><span class="restart" onClick="window.location.reload();">Restart</span></div>';
 		$("body").html(content);
 	} else {
 		var content = "<h1>Isle of Beasts</h1>" + rStats() + rFamilies() + rAnimals();

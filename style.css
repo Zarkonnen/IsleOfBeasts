@@ -69,7 +69,7 @@ h1 {
 	white-space: nowrap;
 }
 
-.actionButton {
+.actionButton, .restart {
 	padding-left: 1em;
 	padding-right: 1em;
 	padding-top: 0.5em;
