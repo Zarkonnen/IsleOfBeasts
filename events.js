@@ -2439,7 +2439,7 @@ var events = [
 			}
 		]
 	},
-	{
+	{ // Hivetastic
 		name: "brutal serfdom",
 		check: () => { return q.indenture >= 2 && q.happy < 80 && q.indentureCommon && q.turn > 14; },
 		show: [],
