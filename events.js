@@ -9,8 +9,7 @@ var startEvent = {
 				q.happy += 5;
 				q.tradition++;
 				q.bones = 1;
-				q.showStats = true;
-				out(startEndText);
+				ev(difficultyEvent);
 			}
 		},
 		{
@@ -18,24 +17,21 @@ var startEvent = {
 			run: () => {
 				q.arousal += 10;
 				q.weapons++;
-				q.showStats = true;
-				out(startEndText);
+				ev(difficultyEvent);
 			}
 		},
 		{
 			text: "Our valuables, sewn into secret pockets in our ragged-looking coats",
 			run: () => {
 				q.valuables += 3;
-				q.showStats = true;
-				out(startEndText);
+				ev(difficultyEvent);
 			}
 		},
 		{
 			text: "Our best bronze knives, axes, awls, and other tools",
 			run: () => {
 				q.tools++;
-				q.showStats = true;
-				out(startEndText);
+				ev(difficultyEvent);
 			}
 		},
 		{
@@ -43,14 +39,43 @@ var startEvent = {
 			run: () => {
 				q.arousal -= 5;
 				q.food += 200;
-				q.showStats = true;
-				out(startEndText);
+				ev(difficultyEvent);
 			}
 		},
 		{
 			text: "Medical herbs and their seeds",
 			run: () => {
 				q.medicine++;
+				q.health += 8;
+				ev(difficultyEvent);
+			}
+		},
+	]
+};
+
+var difficultyEvent = {
+	text: "As we were marched towards the ships, we expected our new life to be:",
+	options: [
+		{
+			text: "Tough but survivable",
+			run: () => {
+				q.difficulty = -25;
+				q.showStats = true;
+				out(startEndText);
+			}
+		},
+		{
+			text: "Hard",
+			run: () => {
+				q.difficulty = -15;
+				q.showStats = true;
+				out(startEndText);
+			}
+		},
+		{
+			text: "A daily struggle to survive",
+			run: () => {
+				q.difficulty = -5;
 				q.showStats = true;
 				out(startEndText);
 			}
@@ -1722,10 +1747,10 @@ var events = [
 				success: () => { return q.law * 20 + q.happy / 2 - q.arousal / 4; },
 				run: (success) => {
 					if (success) {
-						happy += 3;
+						q.happy += 3;
 						out("The youngsters grumble but compensate by singing all the more loudly before sunset.");
 					} else {
-						happy -= 4;
+						q.happy -= 4;
 						out("The youngsters simply ignore this ban. They say that there are only a few curmudgeons who want them to stop singing.");
 					}
 				}
@@ -1735,12 +1760,12 @@ var events = [
 				success: () => { return q.law * 20 + q.happy / 4 + q.arousal / 4 - q.tradition * 10; },
 				run: (success) => {
 					if (success) {
-						happy += 4;
-						arousal += 3;
+						q.happy += 4;
+						q.arousal += 3;
 						out("The oldsters nod their heads. Some of them even join in with the singing.");
 					} else {
-						happy -= 3;
-						arousal += 3;
+						q.happy -= 3;
+						q.arousal += 3;
 						out("The oldsters roll their eyes. They are sure that they were never so impolite when they were young.");
 					}
 				}

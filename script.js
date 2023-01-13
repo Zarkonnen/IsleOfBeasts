@@ -305,8 +305,8 @@ function rEvent() {
 	var options = evt.options.filter(o => o.check ? o.check() : true);
 	for (var i = 0; i < options.length; i++) {
 		options[i].id = i;
-		options[i].chanceText = options[i].success ? chanceText(options[i].success() + q.difficulty) : "";
-		options[i].dangerText = options[i].danger ? dangerText(options[i].danger() - q.difficulty) : "";
+		options[i].chanceText = options[i].success ? chanceText(options[i].success() - q.difficulty) : "";
+		options[i].dangerText = options[i].danger ? dangerText(options[i].danger() + q.difficulty) : "";
 		options[i].chanceStyle = options[i].success ? "challengeChance" : "";
 		options[i].dangerStyle = options[i].danger ? "challengeDanger" : "";
 	}
@@ -381,6 +381,9 @@ function turn() {
 		} else if (q.health < 30) {
 			q.population = Math.ceil(q.population * 9 / 10);
 			addOut("Ill health claims the lives of several villagers.");
+		}
+		if (q.food > 0 && q.food < q.population / 2) {
+			addOut("Your food stores are low.");
 		}
 	}
 	if (q.food < 0) { q.food = 0; }

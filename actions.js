@@ -764,8 +764,15 @@ function doCareForAnimals() {
 function doExplore() {
 	afterAction();
 	var ee = pickEvent(explore, "explore: ");
-	q["explore: " + ee.name] = true;
-	ev(ee);
+	if (ee == null) {
+		q.animals++;
+		q.exploration++;
+		q.food += 30;
+		out("The explorers spend their time observing the strange beasts of the isle and collecting food.");
+	} else {
+		q["explore: " + ee.name] = true;
+		ev(ee);
+	}
 }
 
 function doHunt() {
