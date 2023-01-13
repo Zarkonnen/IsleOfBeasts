@@ -241,7 +241,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 80 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 85 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -265,7 +265,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 100 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 105 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -289,7 +289,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 115 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 125 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -307,13 +307,13 @@ var events = [
 	},
 	{
 		name: "insect attack",
-		check: () => { return q.turn > 12 && q.houses; },
+		check: () => { return q.turn > 18 && q.houses; },
 		show: [],
 		text: "Hundreds of large biting insects with leathery wings swarm towards the village.",
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 110 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 115 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -331,13 +331,13 @@ var events = [
 	},
 	{
 		name: "monkey attack",
-		check: () => { return q.turn > 20 && q.houses; },
+		check: () => { return q.turn > 30 && q.houses; },
 		show: [],
 		text: "Dozens of creatures that look like large headless monkeys swarm out of the forest and attack the village.",
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 100 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 110 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.animalAttacks++;
 					if (harm) {
@@ -478,7 +478,7 @@ var events = [
 		options: [
 			{
 				text: "Construct a set of pulleys to lift the creatures back out.",
-				danger: () => { return 90 - q.tools * 30; },
+				danger: () => { return 80 - q.tools * 20; },
 				run: (success, harm) => {
 					if (harm) {
 						q.woolmouths -= 2;
@@ -610,7 +610,7 @@ var events = [
 			},
 			{
 				text: "Have the council commission the building of a new wagon that will be held in common.",
-				success: () => { return 40 + q.tools * 30 + q.tribe * 20 + q.equality * 10 - q.familyTies * 10; },
+				success: () => { return 35 + q.tools * 25 + q.tribe * 20 + q.equality * 10 - q.familyTies * 10; },
 				run: (success) => {
 					if (success) {
 						q.effectiveness += 10;
@@ -936,7 +936,7 @@ var events = [
 		options: [
 			{
 				text: "The Pawls are clearly the best potters, and should make pottery for all the other families, who will compensate them for their labor.",
-				success: () => { return 10 + q.tools * 30 - q.equality * 20 + q.tribe * 20; },
+				success: () => { return 10 + q.tools * 15 - q.equality * 20 + q.tribe * 20; },
 				run: (success) => {
 					if (success) {
 						q.effectiveness += 10;
@@ -950,7 +950,7 @@ var events = [
 			},
 			{
 				text: "It is good that the Pawls want to teach their techniques to others, who should listen.",
-				success: () => { return 30 + q.tribe * 30 + q.gureHappy * 30; },
+				success: () => { return 20 + q.tribe * 30 + q.gureHappy * 30; },
 				run: (success) => {
 					if (success) {
 						q.effectiveness = 5;
@@ -967,7 +967,7 @@ var events = [
 			},
 			{
 				text: "Tell the Pawls to stop imposing themselves. If the Gures want to know about pottery, they will ask.",
-				success: () => { return 30 + q.law * 10 + q.tools * 30 + q.familyTies * 10; },
+				success: () => { return 20 + q.law * 10 + q.tools * 30 + q.familyTies * 10; },
 				run: (success) => {
 					if (success) {
 						q.gureHappy++;
@@ -1886,8 +1886,8 @@ var events = [
 	},
 	{
 		name: "covered areas",
-		check: () => { return q.turn > 35; },
-		important: () => { return q.turn > 37; },
+		check: () => { return q.turn > 40; },
+		important: () => { return q.turn > 42; },
 		show: [],
 		text: "Foragers report that large areas of the isle have been covered in dense mats of sinous flesh covered with eyes, choking out all other life. The eyes are singularly interested in human beings.",
 		options: [
@@ -1899,8 +1899,8 @@ var events = [
 	},
 	{
 		name: "everything is covered, neutral",
-		check: () => { return q.turn > 41 && !q.robedOneEyes && !q.bimanePlague; },
-		important: () => { return q.turn > 42; },
+		check: () => { return q.turn > 46 && !q.robedOneEyes && !q.bimanePlague; },
+		important: () => { return q.turn > 47; },
 		show: [],
 		text: "Large areas of the island are now covered with matted eye-stalk flesh. Foragers have attempted to hack through them, but the flesh moves to cover and devour them. The council is very worried.",
 		options: [
@@ -1920,8 +1920,8 @@ var events = [
 	},
 	{
 		name: "everything is covered, robed ones",
-		check: () => { return q.turn > 41 && q.robedOneEyes; },
-		important: () => { return q.turn > 42; },
+		check: () => { return q.turn > 46 && q.robedOneEyes; },
+		important: () => { return q.turn > 47; },
 		show: [],
 		text: "Large areas of the island are now covered with matted eye-stalk flesh. Foragers have attempted to hack through them, but the flesh moves to cover and devour them. The council is very worried.<br><br>This must be the the eyes that the Robed Ones spoke of, sent forth by the isle to hunt your unshaped uncovered people.",
 		options: [
@@ -1941,8 +1941,8 @@ var events = [
 	},
 	{
 		name: "everything is covered, bimanes",
-		check: () => { return q.turn > 41 && !q.robedOneEyes && q.bimanePlague; },
-		important: () => { return q.turn > 42; },
+		check: () => { return q.turn > 46 && !q.robedOneEyes && q.bimanePlague; },
+		important: () => { return q.turn > 47; },
 		show: [],
 		text: "Large areas of the island are now covered with matted eye-stalk flesh. Foragers have attempted to hack through them, but the flesh moves to cover and devour them. The council is very worried.<br><br>Perhaps this is the plague that the Bimanes spoke of that caused them to change their shape.",
 		options: [
@@ -1962,8 +1962,8 @@ var events = [
 	},
 	{
 		name: "endgame",
-		check: () => { return q.turn > 45; },
-		important: () => { return q.turn > 45; },
+		check: () => { return q.turn > 50; },
+		important: () => { return q.turn > 50; },
 		show: [],
 		text: "The mats of riotous eye-stalks now abut the walls of the town. The whole isle appears to be covered by it, threatening to extinguish all other life. The council debate what can be done against it.",
 		options: [
@@ -2024,7 +2024,7 @@ var events = [
 								{
 									text: "Nimble creatures like blademouths",
 									check: () => { return q.blademouths; },
-									success: () => { return q.blademouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -20 + q.blademouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into slender furred beings, like beautiful horned monkeys. When they show themselves to the eye stalks, they waver and retreat.<br><br>Now begins a new era for the people, of running through the woods and playing and joy.");
@@ -2036,7 +2036,7 @@ var events = [
 								{
 									text: "Tough burrowers like codgers",
 									check: () => { return q.codgers; },
-									success: () => { return q.codgers * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -20 + q.codgers * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large-clawed lizards. They burrow underground and wait for the eye stalks to wither, and when they resurface, the isle is again full of life.<br><br>Now begins a new era for the people, who now dwell underground in cosy tunnels with great hearths.");
@@ -2048,7 +2048,7 @@ var events = [
 								{
 									text: "Gentle herbivores like woolmouths",
 									check: () => { return q.woolmouths; },
-									success: () => { return q.woolmouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -20 + q.woolmouths * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large feathered beasts of friendly countenance. They show themselves to the eye stalks, which gaze upon them and then retreat, allowing the people to spill out into the meadows.<br><br>Now begins a new era for the people, one of calm grazing and the singing of songs under the beautiful sun.");
@@ -2060,7 +2060,7 @@ var events = [
 								{
 									text: "Elegant fliers like spindrakes",
 									check: () => { return q.spindrakes; },
-									success: () => { return q.spindrakes * 10 + q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -20 + q.spindrakes * 10 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into large feathered bats. They take flight and leave for the safety of the mountaintops, waiting until the eye stalks wither and retreat.<br><br>Now begins a new era for the people, where they flit about in the air, glorying in acrobatic displays.");
@@ -2072,7 +2072,7 @@ var events = [
 								{
 									text: "A shape that lets them keep their dexterity, like bimanes",
 									check: () => { return q.bimanePlague; },
-									success: () => { return q.shaping * 20 + q.humanShaping * 20; },
+									success: () => { return -20 + q.shaping * 20 + q.humanShaping * 20; },
 									run: (success) => {
 										if (success) {
 											win("The shapers confer and begin their art. The next day, the people wake up changed into spider-like beings with many dextrous limbs. They will have to make new clothes and adapt their tools a little, but they will be able to make art and machines the like of which have never been seen before. The eye stalks soon fade away now that they have no more unshaped humans to hunt.<br><br>Now begins a new era for the people, one of art and industry and ingenuity, where they will build great towers and plumb the secrets of creation.");
@@ -2083,7 +2083,7 @@ var events = [
 								},
 								{
 									text: "A new, better shape, superior to everything",
-									success: () => { return q.shaping * 12 + q.humanShaping * 12; },
+									success: () => { return -20 + q.shaping * 12 + q.humanShaping * 12; },
 									run: (success) => {
 										if (success) {
 											win("The shapers mutter that superiority can mean any number of things, but they confer, and then begin their art. The next day, the people wake up a scintillating many-eyed centaurs, fast and strong and wise - and the eye-stalks, seeing this, retreat back into the ground.<br><br>Now begins a new era for the people, one of resplendent glory on this magnificent isle.");
@@ -2163,7 +2163,7 @@ var events = [
 		options: [
 			{
 				text: "Defend the village",
-				danger: () => { return 125 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				danger: () => { return 130 - q.weapons * 15 - q.defenses * 20 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
 					q.bimanePrevInteraction = "violent";
 					q.fights++;

@@ -3,8 +3,8 @@ var hunt = {
 	options: [
 		{
 			text: "Send the hunters to find prey.",
-			success: () => { return 15 + strength() / 4 + q.weapons * 15 + q.exploration * 5 + q.animals * 5; },
-			danger: () => { return 70 - strength() / 4 - q.weapons * 10 - q.animals * 10; },
+			success: () => { return 25 + strength() / 8 + q.weapons * 10 + q.exploration * 5 + q.animals * 5; },
+			danger: () => { return 60 - strength() / 8 - q.weapons * 10 - q.animals * 10; },
 			run: (success, harm) => {
 				if (success) {
 					q.food += 70;
@@ -32,7 +32,7 @@ var hunt = {
 		{
 			text: "Send the blademouths to find suitable prey.",
 			check: () => { return q.blademouths; },
-			success: () => { return 20 + strength() / 4 + q.weapons * 15 + q.blademouths * 10 + (q.blademouthScouts ? 30 : 0); },
+			success: () => { return 30 + strength() / 8 + q.weapons * 15 + q.blademouths * 10 + (q.blademouthScouts ? 30 : 0); },
 			danger: () => { return 60 - strength() / 4 - q.weapons * 10 - (q.blademouthFighters ? 15 : 0); },
 			run: (success, harm) => {
 				if (success) {
@@ -63,7 +63,7 @@ var hunt = {
 		{
 			text: "Direct the codgers to ferret out underground prey.",
 			check: () => { return q.codgers; },
-			success: () => { return 20 + strength() / 4 + q.weapons * 15 + q.codgers * 10 + (q.codgerDiggers ? 30 : 0); },
+			success: () => { return 30 + strength() / 8 + q.weapons * 15 + q.codgers * 10 + (q.codgerDiggers ? 30 : 0); },
 			danger: () => { return 60 - q.codgers * 15 - (q.codgerFighters ? 10 : 0); },
 			run: (success, harm) => {
 				if (success) {
@@ -94,7 +94,7 @@ var hunt = {
 		{
 			text: "Send the spindrakes to find suitable prey.",
 			check: () => { return q.spindrakes && !q.spindrakeRiders; },
-			success: () => { return 10 + strength() / 4 + q.weapons * 15 + q.spindrakes * 20 - (q.spindrakeFire ? 10 : 0); },
+			success: () => { return 10 + strength() / 8 + q.weapons * 15 + q.spindrakes * 20 - (q.spindrakeFire ? 10 : 0); },
 			danger: () => { return 60 - strength() / 4 - q.weapons * 15; },
 			run: (success, harm) => {
 				if (success) {

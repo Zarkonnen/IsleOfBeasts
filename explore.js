@@ -218,7 +218,7 @@ var explore = [
 			},
 			{
 				text: "Imitate their humming",
-				success: () => { return 25 + q.songs * 40 + q.animals * 10; },
+				success: () => { return 20 + q.songs * 30 + q.animals * 10; },
 				run: (success) => {
 					if (success) {
 						q.woolmouths = 1;
@@ -1004,7 +1004,7 @@ var explore = [
 		name: "robed one attack 1",
 		check: () => { return q.robedOnesEncountered && q.robedOneRelations < 0 && q.robedOneStrength > 50; },
 		show: [],
-		text: "The explorers try to fight back, but stand little chance against the sharp swords of the robed ones.",
+		text: "Dozens of strange figures dressed in conical robes emerge from the fog. They surround your explorers. Long sleeves emerge from between folds and grasp at their swords.",
 		options: [
 			{
 				text: "Fight",
@@ -1014,7 +1014,7 @@ var explore = [
 					if (harm) {
 						q.population -= 8;
 						q.happy -= 12;
-						out("The explorers valiantly attempt a counterattack, but they are swarmed by bimanes of all shapes and sizes, impossible to adapt and fight against, monstrously coordinated, and they are torn apart.");
+						out("The explorers try to fight back, but stand little chance against the sharp swords of the robed ones.");
 					} else {
 						q.fights++;
 						q.health -= 5;
@@ -1491,21 +1491,19 @@ var explore = [
 				text: "Attack the creatures before they can do any harm.",
 				danger: () => { return 90 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
+					q.bimanesEncountered = true;
+					q.bimaneRelations--;
+					q.fights++;
+					q.bimanePrevInteraction = "violent";
 					if (harm) {
-						q.bimanesEncountered = true;
-						q.bimaneRelations--;
-						q.fights++;
-						q.bimanePrevInteraction = "violent";
-						if (harm) {
-							q.population -= 7;
-							q.health -= 7;
-							q.happy -= 7;
-							out("The explorers scream as they grasp their spears and knives and rush the monsters - but they are ready with their own weapons, moving in a dozen unexpected ways. Your people are confused by the multitude of shapes that attack them, and soon they are bludgeoned and cut down. Hardly any escape.");
-						} else {
-							q.bimaneStrength -= 10;
-							q.arousal += 10;
-							out("The explorers scream as they grasp their spears and knives and rush the monsters. Their strange lumbering shapes are easily cut down, and as they fall, they split into smaller figures that try to scamper away into the undergrowth, only to be pursued and hacked to pieces.");
-						}
+						q.population -= 7;
+						q.health -= 7;
+						q.happy -= 7;
+						out("The explorers scream as they grasp their spears and knives and rush the monsters - but they are ready with their own weapons, moving in a dozen unexpected ways. Your people are confused by the multitude of shapes that attack them, and soon they are bludgeoned and cut down. Hardly any escape.");
+					} else {
+						q.bimaneStrength -= 10;
+						q.arousal += 10;
+						out("The explorers scream as they grasp their spears and knives and rush the monsters. Their strange lumbering shapes are easily cut down, and as they fall, they split into smaller figures that try to scamper away into the undergrowth, only to be pursued and hacked to pieces.");
 					}
 				}
 			},
@@ -1530,7 +1528,7 @@ var explore = [
 	{
 		name: "robed one first encounter",
 		check: () => { return q.exploration > 2 || q.turn > 16; },
-		important: () => { return q.exploration > 4; },
+		important: () => { return q.exploration > 3; },
 		show: [],
 		text: "Your explorers are walking through swampy forest outskirts when they notice a number of cone-shaped figures emerging from the mist. The roughly human-sized figures are covered in massive ornate robes that completely hide their bodies. Beads and medallions clink against each other as they approach. Wicked-looking swords are belted to their sides, though no hands are visible to grasp them. They move up to the explorers as if to block their progress.",
 		extraText: () => {
@@ -1599,22 +1597,20 @@ var explore = [
 				text: "Attack the creatures before they can do any harm.",
 				danger: () => { return 100 - q.weapons * 25 - strength() / 4 - (q.codgerFighters ? 10 + q.codgers * 5 : 0) - (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success, harm) => {
+					q.robedOnesEncountered = true;
+					q.robedOneRelations--;
+					q.fights++;
+					q.robedOnePrevInteraction = "violent";
 					if (harm) {
-						q.robedOnesEncountered = true;
+						q.population -= 8;
+						q.happy -= 10;
+						out("The explorers grip their spears and rush the figures, which respond by raising the swords they'd concealed within their robes. They wield their weapons with surprising speed and accuracy, and your people are cut down.");
+					} else {
+						q.robedOneStrength -= 15;
+						q.arousal += 10;
 						q.robedOneRelations--;
-						q.fights++;
-						q.robedOnePrevInteraction = "violent";
-						if (harm) {
-							q.population -= 8;
-							q.happy -= 10;
-							out("The explorers grip their spears and rush the figures, which respond by raising the swords they'd concealed within their robes. They wield their weapons with surprising speed and accuracy, and your people are cut down.");
-						} else {
-							q.robedOneStrength -= 15;
-							q.arousal += 10;
-							q.robedOneRelations--;
-							q.valuables++;
-							out("The explorers grip their spears and rush the figures, which attempt to fight back with swords they had concealed in between the folds of their robes. Still, they are taken by surprise and after a short battle, they are slaughtered and driven away. Curious, your people strip one of the dead ones and find a perfectly ordinary-looking human woman below the many layers. She is adorned with valuable jewels.");
-						}
+						q.valuables++;
+						out("The explorers grip their spears and rush the figures, which attempt to fight back with swords they had concealed in between the folds of their robes. Still, they are taken by surprise and after a short battle, they are slaughtered and driven away. Curious, your people strip one of the dead ones and find a perfectly ordinary-looking human woman below the many layers. She is adorned with valuable jewels.");
 					}
 				}
 			},
@@ -1853,7 +1849,7 @@ var explore = [
 	},
 	{
 		name: "first eyestalk encounter",
-		check: () => { return q.turn > 18; },
+		check: () => { return q.turn > 24; },
 		show: [],
 		text: "Deep in the forest, your explorers encounter a strange stalk of sinous flesh topped with multiple eyes. The eyes appear very very interested in the explorers.",
 		options: [
@@ -1894,7 +1890,7 @@ var explore = [
 	},
 	{
 		name: "second eyestalk encounter",
-		check: () => { return q.turn > 25 && q.eyestalksSeen; },
+		check: () => { return q.turn > 30 && q.eyestalksSeen; },
 		show: [],
 		text: "Walking through the meadows, your explorers encounter large clusters of flesh-stalk eyes. These are the same ones that they saw in the forest previously, but much more numerous.",
 		options: [
