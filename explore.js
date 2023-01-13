@@ -412,7 +412,7 @@ var explore = [
 		options: [
 			{
 				text: "Harvest the thorns with what tools you have",
-				danger: () => { return 160 - strength() - q.tools * 40; },
+				danger: () => { return 160 - strength() - q.tools * 25; },
 				run: (success, harm) => {
 					if (harm) {
 						q.health -= 8;
@@ -718,7 +718,7 @@ var explore = [
 						q.defenses = 4;
 						q.walls = true;
 						q.watchtower = true;
-						q.strongWalls = true;
+						q.reinforcedWalls = true;
 						q.familyTies--;
 						q.tribe++;
 						out("The tower looks forbidding, but it is so large that your people fit into it, portioning off its large halls and rooms into smaller dwellings as needed. The surrounding meadowlands are fertile and pleasant, and the defensive position is formidable.");

@@ -370,12 +370,12 @@ function turn() {
 			}
 		}
 		if (q.food < 0) {
-			q.health -= 8;
+			q.health -= 5;
 			if (q.health < 30) {
 				q.population = Math.ceil(q.population * 3 / 4);
 				addOut("Your food stores have run out, and your people are dying.");
 			} else {
-				q.population = Math.ceil(q.population * 9 / 10);
+				q.population = Math.ceil(q.population * 5 / 6);
 				addOut("Your food stores have run out, and your people are starving.");
 			}
 		} else if (q.health < 10) {
