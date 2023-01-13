@@ -196,7 +196,7 @@ var explore = [
 	},
 	{
 		name: "woolmouths",
-		check: () => { return q.exploration > 0; },
+		check: () => { return q.exploration > 0 && q.woolmouths == 0; },
 		important: () => { return q.turn > 21; },
 		show: [],
 		text: "Walking through the meadowlands, your explorers notice a group of animals that look like wooly frogs with giant mouths. They decide to call them woolmouths. They appear unperturbed by your people, bleating and humming and eating grass.",
@@ -279,7 +279,7 @@ var explore = [
 	},
 	{
 		name: "blademouths 2",
-		check: () => { return q.blademouthsTryAgain; },
+		check: () => { return q.blademouthsTryAgain && q.blademouths == 0; },
 		show: [],
 		text: "The explorers notice that some blademouths are following them. These are furry cat-sized animals with huge sharp beetle mandibles, and previous attempts at taming them failed.",
 		options: [
@@ -312,7 +312,7 @@ var explore = [
 	},
 	{
 		name: "codgers 2",
-		check: () => { return q.codgersTryAgain; },
+		check: () => { return q.codgersTryAgain && q.codgers == 0; },
 		show: [],
 		text: "In the forest, a group of codger pups cluster around a dead mother.",
 		options: [
@@ -344,7 +344,7 @@ var explore = [
 	},
 	{
 		name: "woolmouths 2",
-		check: () => { return q.woolmouthsTryAgain; },
+		check: () => { return q.woolmouthsTryAgain && q.woolmouths == 0; },
 		show: [],
 		text: "Your explorers encounter another herd of woolmouths, creatures that look like large wooly frogs. The last attempt to tame them failed.",
 		options: [
@@ -373,7 +373,7 @@ var explore = [
 	},
 	{
 		name: "spindrakes 2",
-		check: () => { return q.spindrakesTryAgain; },
+		check: () => { return q.spindrakesTryAgain && q.spindrakes == 0; },
 		show: [],
 		text: "The explorers notice that some blademouths are following them. These are furry cat-sized animals with huge sharp beetle mandibles, and previous attempts at taming them failed.",
 		options: [
