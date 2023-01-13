@@ -1208,7 +1208,7 @@ var events = [
 			{
 				text: "Punish the woman by indenturing her to the Pawls for a month.",
 				check: () => { return q.indenture; },
-				run: () => { q.pawlHappy++; out("The woman takes this in stride. A month's indenture is nothing compared to a lifetime of boredom."); }
+				run: () => { q.pawlHappy++; q.indenture++; out("The woman takes this in stride. A month's indenture is nothing compared to a lifetime of boredom."); }
 			},
 			{
 				text: "Remind the Pawls that since there was no formal betrothal, they have nothing to complain about.",
@@ -1456,6 +1456,7 @@ var events = [
 	{
 		name: "indenture becomes common",
 		check: () => { return q.indenture >= 2 && q.turn >= 10; },
+		important: () => { return q.indenture >= 3; },
 		show: [],
 		text: "With indenture established as the punishment for crime, it is soon applied to all kinds of situations. Minor slights are punished with a week's time. Some people keep on being re-indentured. The council suspects that offenses are being invented to settle scores, control malcontents, and profit from the labor of others.",
 		options: [
@@ -2440,7 +2441,7 @@ var events = [
 	},
 	{
 		name: "brutal serfdom",
-		check: () => { return q.indenture >= 3 && q.happy < 80 && q.indentureCommon && q.turn > 14; },
+		check: () => { return q.indenture >= 2 && q.happy < 80 && q.indentureCommon && q.turn > 14; },
 		show: [],
 		run: () => { q.effectiveness += 12; q.equality -= 3; q.health -= 5; q.tradition--; },
 		text: "The practice of indenture has now become so widespread that a large part of the people are held in that state. Many of them have accumulated so many years of service that they will never be free again. Indentured servants are openly traded between families, and ever flimsier pretexts are concocted to force more people into service. It is slavery by another name, but the well-to-do members of the families profit too much from it for it to be challenged.",

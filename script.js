@@ -65,6 +65,7 @@ q.humanShaping = 0;
 q.difficulty = -15;
 q.moodPerTurn = 0;
 q.healthPerTurn = 1;
+q.indenture = 0;
 
 var nextPickEvent = false;
 var nextDoTurn = false;

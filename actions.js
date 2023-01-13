@@ -292,7 +292,7 @@ var hall = {
 	options: [
 		{
 			text: "A magnificent grand hall to lift the spirits.",
-			success: () => { return strength() - 100 + q.tools * 25; },
+			success: () => { return strength() - 70 + q.tools * 25; },
 			run: (success, harm) => {
 				q.hall = true;
 				q.effectiveness += 5;
