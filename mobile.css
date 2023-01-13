@@ -1,0 +1,31 @@
+body {
+	background: #f6deb8;
+	font-size: 14pt;
+}
+
+h1 {
+	color: #052f3f;
+	font-size: 130%;
+}
+
+.block, .darkBlock {
+	display: block;
+	margin: 0;
+	margin-bottom: 1em;
+	width: 100%;
+}
+
+.darkBlock {
+	background: #f6deb8;
+	border: none;
+	padding: 0;
+}
+
+.block {
+	background: #f6deb8;
+	border: none;
+	color: #052f3f;
+	padding: 0;
+	line-height: 1.3;
+}
+
