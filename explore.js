@@ -695,7 +695,7 @@ var explore = [
 			{
 				text: "Use the woolmouths as pack animals to move the stones to your village for use as building material",
 				check: () => { return q.woolmouths; },
-				danger: () => { return 30 + q.woolmouths * 15; },
+				danger: () => { return 40 + q.woolmouths * 15; },
 				run: (success, harm) => {
 					if (harm) {
 						if (q.woolmouths > 1) {
@@ -1115,7 +1115,7 @@ var explore = [
 				text: "Instruct the codgers to dig for more.",
 				check: () => { return q.codgers; },
 				success: () => { return q.codgerDiggers ? 100 : 40 },
-				run: () => {
+				run: (success) => {
 					if (success) {
 						q.weapons += 2;
 						q.tools += 2;

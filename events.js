@@ -59,7 +59,7 @@ var difficultyEvent = {
 		{
 			text: "Tough but survivable",
 			run: () => {
-				q.difficulty = -25;
+				q.difficulty = -30;
 				q.showStats = true;
 				out(startEndText);
 			}
@@ -73,9 +73,9 @@ var difficultyEvent = {
 			}
 		},
 		{
-			text: "A daily struggle to survive",
+			text: "A daily struggle",
 			run: () => {
-				q.difficulty = -5;
+				q.difficulty = 0;
 				q.showStats = true;
 				out(startEndText);
 			}
@@ -1740,7 +1740,7 @@ var events = [
 		name: "song grumbling",
 		check: () => { return q.songs >= 2; },
 		show: [],
-		text: "",
+		text: "With all the new songs composed in the village, there is hardly ever a moment of quiet. Youngsters often sing late into the night, and some of the older people have started grumbling about this.",
 		options: [
 			{
 				text: "Ban singing after sunset, except for feasts",
@@ -1981,7 +1981,7 @@ var events = [
 			},
 			{
 				text: "Use weapons and fire to burn it away",
-				success: () => { return -60 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 30 : 0) + q.tools * 5 + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				success: () => { return -100 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 30 : 0) + q.tools * 5 + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
 						var text = "Whatever this creature might be, it's made of flesh and blood, and your warriors have experience with killing monsters. They pour out of the village gates and hack at the writhing coils of flesh";
@@ -2015,7 +2015,7 @@ var events = [
 			},
 			{
 				text: "Use shaping skills to re-shape the people into new forms",
-				success: () => { return 40 - q.tradition * 20 + q.animals * 10 + q.tribe * 20 + q.humanShaping * 5; },
+				success: () => { return 20 - q.tradition * 20 + q.animals * 10 + q.tribe * 20 + q.humanShaping * 5; },
 				run: (success) => {
 					if (success) {
 						ev({
@@ -2101,7 +2101,7 @@ var events = [
 			},
 			{
 				text: "Build a ship to escape the isle",
-				success: () => { return 15 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 15 : 0) + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
+				success: () => { return 5 + strength() / 2 + q.weapons * 20 + (q.spindrakeFire ? 15 : 0) + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
 						ev({
@@ -2109,7 +2109,7 @@ var events = [
 							options: [
 								{
 									text: "Set sail towards it.",
-									success: () => { return q.tools * 20 + q.effectiveness - 100; },
+									success: () => { return q.tools * 20 + q.effectiveness - 120; },
 									run: (success) => {
 										if (success) {
 											win("It's slow going, as your people are not experienced seamen, but the ship is well-built, and after a few days travel, you arrive on the shores of the northern island. Normal plants and animals greet you. A chance to start anew, away from the oppression of the old country and the monsters of the Isle of Beasts.");
