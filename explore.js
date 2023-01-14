@@ -532,7 +532,7 @@ var explore = [
 		options: [
 			{
 				text: "Set to digging",
-				danger: () => { return 120 - strength() - q.tools * 30; },
+				danger: () => { return 120 - strength() - q.tools * 20; },
 				run: (success, harm) => {
 					if (harm) {
 						q.health -= 5;
@@ -1176,7 +1176,7 @@ var explore = [
 				text: "Direct the codgers to dig out the copper vein.",
 				check: () => { return q.codgers && !q.spindrakeFire; },
 				success: () => { return q.codgerDiggers ? 80 : 40 },
-				run: () => {
+				run: (success) => {
 					if (success) {
 						q.weapons += 2;
 						q.tools += 2;
@@ -1943,6 +1943,64 @@ var explore = [
 					done();
 				}
 			},
+		]
+	},
+	{
+		name: "bimane hunt",
+		check: () => { return q.bimaneVillage && q.bimaneRelations >= 0; },
+		show: [],
+		text: "Your explorers come across a hunting party of bimanes, stalking scintillating deer-like creatures with spears and clubs.",
+		options: [
+			{
+				text: "Observe them.",
+				run: () => {
+					q.weapons++;
+					q.animals++;
+					out("The bimanes use their many forms to their advantage, staying low to the ground to keep their prey unaware, feinting and splitting and reshaping themselves as needed. Humans cannot do these things, but the tactics on display are nevertheless very interesting.");
+				}
+			},
+			{
+				text: "Offer to help them hunt.",
+				success: () => { return 10 + q.bimaneRelations * 30 + q.weapons * 5; },
+				run: (success) => {
+					if (success) {
+						q.weapons++;
+						q.animals++;
+						q.food += 100;
+						q.bimaneRelations++;
+						out("The bimanes are happy to accept the help. They are stealthier and more flexible than humans, but your warriors are stronger and faster, and together, they take down much prey. They share the meat and part amicably, and your warriors agree that they have learned much about fighting.");
+					} else {
+						out("The bimanes are irritated at this suggestion and raise their spears, telling your people to withdraw before they spook their prey.");
+					}
+				}
+			},
+			{
+				text: "Ignore them.",
+				run: () => { q.exploration++; out("What the bimanes do is of little interest to the people. You carry on."); }
+			}
+		]
+	},
+	{
+		name: "robed one funeral",
+		check: () => { return q.robedOneVillage && q.robedOneRelations >= 0; },
+		show: [],
+		text: "In the remote, misty reaches of the forest, your explorers come across a party of robed ones. One of them is dressed in huge, elaborately decorated robes, and moves along slowly, supported by the others.",
+		options: [
+			{
+				text: "Approach them.",
+				success: () => { return q.robedOneRelations * 25 + q.tradition * 10; },
+				run: (success) => {
+					if (success) {
+						out("The robed ones are apprehensive at first, but then decide that they are willing to let your people observe their ritual. It's not exactly a funeral. When one of them becomes very old, they are dressed in their finest robes, and brought to a spot in the forest. There they will meditate, and their people will come by to bring them tea and small amounts of powdered meat or honey, and ask them for their wisdom. As time goes on, they sink deeper into meditation, and eat and drink less, and answer fewer questions. It's clear to the explorers that at some point, the elder will die, but they know better than to raise this point with the robed ones, who assure them that for truly important questions, even the oldest elders can rouse themselves to give advice.");
+					} else {
+						out("The robed ones make it very clear that this is one of their mysteries that outsiders are not welcome to. Your explorers depart.");
+					}
+				}
+			},
+			{
+				text: "Keep away.",
+				run: () => { q.exploration++; out("Whatever strange thing the robed ones are up to, your people want no part in it."); }
+			}
 		]
 	},
 ];

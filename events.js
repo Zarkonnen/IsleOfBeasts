@@ -1968,14 +1968,28 @@ var events = [
 		]
 	},
 	{
-		name: "endgame",
-		check: () => { return q.turn > 50; },
-		important: () => { return q.turn > 50; },
+		name: "pre-endgame",
+		check: () => { return q.turn > 51 && q.population > 25; },
+		important: () => { return q.turn > 51; },
+		run: () => { q.population -= 3; q.forage = 0; },
 		show: [],
-		text: "The mats of riotous eye-stalks now abut the walls of the town. The whole isle appears to be covered by it, threatening to extinguish all other life. The council debate what can be done against it.",
+		text: "The foragers return in a panic. The eye-stalks have covered all of the island except for a small area around the village. Whenever they encounter someone, they seize them and rip them apart.",
 		options: [
 			{
-				text: "Wait it out within the town walls",
+				text: "We must brace ourselves to survive this, somehow.",
+				run: () => { q.effectiveness += 5; done(); }
+			}
+		]
+	},
+	{
+		name: "endgame",
+		check: () => { return q.turn > 53; },
+		important: () => { return q.turn > 53; },
+		show: [],
+		text: "The mats of riotous eye-stalks now abut the boundary of the village. The whole isle appears to be covered by it, threatening to extinguish all other life. The council debate what can be done against it.",
+		options: [
+			{
+				text: "Wait it out within the walls.",
 				success: () => { return q.food * 7 / q.population + q.defenses * 5; },
 				check: () => { return q.walls; },
 				run: (success) => {
@@ -1987,7 +2001,7 @@ var events = [
 				}
 			},
 			{
-				text: "Use weapons and fire to burn it away",
+				text: "Use weapons and fire to burn it away.",
 				success: () => { return -100 + strength() / 2 + q.weapons * 15 + (q.spindrakeFire ? 30 : 0) + q.tools * 5 + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
@@ -2009,7 +2023,7 @@ var events = [
 				}
 			},
 			{
-				text: "Don concealing robes to hide from the eyes",
+				text: "Don concealing robes to hide from the eyes.",
 				check: () => { return q.robedOneEyes; },
 				success: () => { return 10 + q.law * 30 - q.tradition * 10 + q.equality * 10; },
 				run: (success) => {
@@ -2021,8 +2035,8 @@ var events = [
 				}
 			},
 			{
-				text: "Use shaping skills to re-shape the people into new forms",
-				success: () => { return 20 - q.tradition * 20 + q.animals * 10 + q.tribe * 20 + q.humanShaping * 5; },
+				text: "Use shaping skills to re-shape the people into new forms.",
+				success: () => { return 0 - q.tradition * 20 + q.animals * 10 + q.tribe * 20 + q.humanShaping * 5 + (q.selfShaping ? 20 : 0); },
 				run: (success) => {
 					if (success) {
 						ev({
@@ -2107,7 +2121,7 @@ var events = [
 				}
 			},
 			{
-				text: "Build a ship to escape the isle",
+				text: "Build a ship to escape the isle.",
 				success: () => { return 5 + strength() / 2 + q.weapons * 15 + (q.spindrakeFire ? 15 : 0) + (q.codgerFighters ? 10 + q.codgers * 5 : 0) + (q.blademouthFighters ? 5 + q.blademouths * 5 : 0); },
 				run: (success) => {
 					if (success) {
@@ -3021,6 +3035,506 @@ var events = [
 				text: "Make no trade.",
 				run: () => {
 					out("You indicate that you do not wish to trade. It accepts this and moves on.");
+				}
+			}
+		]
+	},
+	{
+		name: "artworks",
+		check: () => { return q.tradition > 2 && q.tools > 1 && q.turn > 10 && q.temple; },
+		show: [],
+		text: "In the old country, the people were well-known for their intricate stone figurines. It's taken some time for them to adapt their techniques to the local stone, but now they once again create beautiful works of art.",
+		options: [
+			{
+				text: "Valuable trade goods, too.",
+				run: () => { q.valuables++; done(); }
+			}
+		]
+	},
+	{
+		name: "wall guarding",
+		check: () => { return q.walls; },
+		important: () => { return q.turn > 14; },
+		show: [],
+		text: "The village is now encircled by walls, but to truly keep the people safe, they must be manned as well.",
+		options: [
+			{
+				text: "Post a few lookouts.",
+				run: () => {
+					out("The lookouts will be able to rouse the people if a threat approaches.");
+				}
+			},
+			{
+				text: "Constantly man the wall with warriors.",
+				run: () => {
+					q.defenses++;
+					q.arousal += 4;
+					q.health -= 4;
+					q.effectiveness -= 12;
+					out("Keeping the wall defended like that means fewer people to do other work, but enemies will find it difficult to threaten the village.");
+				}
+			}
+		]
+	},
+	{
+		name: "gure happy",
+		check: () => { return q.gureHappy > 1; },
+		show: ["gure"],
+		text: "The Gure family have been at the forefront of exploration since the first days on the isle. Now their scouts range across the land, bringing back food, valuable knowledge, and exciting tales.",
+		run: () => {
+			q.exploration++;
+			q.animals++;
+			q.forage++;
+			q.happy += 4;
+			q.arousal += 4;
+		},
+		options: [
+			{
+				text: "Astounding!",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "jenet happy",
+		check: () => { return q.jenetHappy > 1; },
+		show: ["jenet"],
+		text: "The Jenet family have been hard at work making this new home a place where the people can stay and thrive. The village is clean, well-organised, and beautiful.",
+		run: () => {
+			q.effectiveness += 8;
+			q.health += 10;
+			q.happy += 4;
+			q.arousal += 4;
+		},
+		options: [
+			{
+				text: "What would we do without them?",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "pawl happy",
+		check: () => { return q.pawlHappy > 1; },
+		show: ["pawl"],
+		text: "The Pawls have busied themselves with a project to beautify the village hall with intricate carvings. At last, their work is complete, and the people rejoice.",
+		run: () => {
+			q.happy += 15;
+			q.arousal += 4;
+		},
+		options: [
+			{
+				text: "Beauty makes the heart sing, and makes many things bearable.",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "aphal happy",
+		check: () => { return q.aphalHappy > 1; },
+		show: ["aphal"],
+		text: "The Aphal family have been busy studying the plants, animals, and minerals of the isle, and how to best make use of them. Now they have developed new tools and weapons to aid the people.",
+		run: () => {
+			q.tools++;
+			q.weapons++;
+		},
+		options: [
+			{
+				text: "The people are grateful for this contribution.",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "eshling happy",
+		check: () => { return q.eshlingHappy > 1; },
+		show: ["eshling"],
+		text: "The Eshlings have busied themselves in the forests and village gardens, growing beds of new and old herbs for cooking and medical purposes.",
+		run: () => {
+			q.medicine++;
+			q.health += 5;
+		},
+		options: [
+			{
+				text: "Never underestimate the Eshlings!",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "gure unhappy",
+		check: () => { return q.gureHappy < -1; },
+		show: ["gure"],
+		text: "The Gures have always been difficult to deal with, but now they are in constant dispute with the other families. Gures are leaving on ever-longer scouting and foraging trips, preferring to camp out in the wilderness to spending time in the village.",
+		run: () => {
+			q.effectiveness -= 10;
+			q.happy -= 5;
+		},
+		options: [
+			{
+				text: "Do they even wish to be part of the people?",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "jenet unhappy",
+		check: () => { return q.jenetHappy < -1; },
+		show: ["jenet"],
+		text: "There is an air of desperation about the Jenets, who have responded to their bad luck since arriving on the isle by working themselves far too hard.",
+		run: () => {
+			q.effectiveness -= 3;
+			q.health -= 12;
+		},
+		options: [
+			{
+				text: "Why are they so driven to destroy themselves?",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "pawl unhappy",
+		check: () => { return q.pawlHappy < -1; },
+		show: ["pawl"],
+		text: "The Pawls are a high-handed family at the best of times, but now they have taken this to a new level. Pawls can be found everywhere, interfering, correcting, advising where no advice is needed.",
+		run: () => {
+			q.happy -= 12;
+			q.arousal += 8;
+		},
+		options: [
+			{
+				text: "Why do they feel the need to insert themselves everywhere?",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "aphal unhappy",
+		check: () => { return q.aphalHappy < -1; },
+		show: ["aphal"],
+		text: "The Aphals have dealt with their misfortune by becoming obsessed with the strange art of shaping. They neglect all other duties.",
+		run: () => {
+			q.effectiveness -= 10;
+			q.shaping++;
+			q.arousal -= 4;
+		},
+		options: [
+			{
+				text: "That's the problem with intellectuals.",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "eshling unhappy",
+		check: () => { return q.eshlingHappy < -1; },
+		show: ["eshling"],
+		text: "The Eshlings, downcast, are staying in their hearth-room whenever possible and barely acknowledge the other families anymore.",
+		run: () => {
+			q.effectiveness -= 4;
+			q.happy -= 5;
+			q.arousal -= 5;
+			q.health -= 4;
+		},
+		options: [
+			{
+				text: "The Eshlings have always kept to themselves.",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
+		name: "self-shaping children",
+		check: () => { return q.shaping > 2; },
+		show: [],
+		text: "The council is convened to deal with a strange matter: some children have been observed using the shaping arts on themselves. They grow tails and antlers and additional fingers, make their skin change colour and texture, and more besides that, all to amuse themselves. The alterations are only temporary as their normal human shape reasserts itself quickly enough, but their parents are disturbed.",
+		options: [
+			{
+				text: "Distorting the human form in this way is monstrous.",
+				run: () => {
+					q.tradition++;
+					q.tribe++;
+					q.arousal += 4;
+					out("We are of the people, not monsters from the isle. The children must be taught this.");
+				}
+			},
+			{
+				text: "Shaping humans is a dangerous technique that should only be attempted by experienced shapers.",
+				run: () => {
+					q.shaping++;
+					out("The children are forbidden to shape themselves lest they get hurt. Instead, the most experienced shapers begin careful experiments on this matter.");
+				}
+			},
+			{
+				text: "Self-shaping has potentially fascinating applications, and we should let this develop.",
+				success: () => { return 45 - q.tradition * 20 + q.shaping * 15 + q.equality * 5;  },
+				run: (success) => {
+					q.selfShaping = true;
+					if (success) {
+						q.arousal += 5;
+						q.happy += 5;
+						q.tradition--;
+						out("We are truly becoming a people of the isle. Imagine being able to grow gills, or wings, or claws, as needed!");
+					} else {
+						q.happy -= 3;
+						q.arousal += 5;
+						out("The people balk at these radical ideas coming from the council and tell their children to stop shaping themselves. Not all of them listen.");
+					}
+				}
+			}
+		]
+	},
+	{
+		name: "self-shaping accident",
+		check: () => { return q.selfShaping && q.shaping < 5; },
+		run: () => {
+			q.population--;
+			q.happy -= 10;
+			q.selfShaping = false;
+		},
+		show: [],
+		text: "Horrible screams are heard throughout the village: One of the children has been playing at reshaping herself, and she evidently took it too far. Her mother wails over her twitching corpse, a mess of antlers and limbs. Fury soon finds its target in the council, who encouraged such dangerous behaviour.",
+		options: [
+			{
+				text: "Apologise profusely.",
+				success: () => { return 30 + q.law * 10 + q.tradition * 10 - q.equality * 10 - q.arousal / 4; },
+				run: (success) => {
+					if (success) {
+						q.arousal -= 10;
+						out("The whole council prostrate themselves in front of the mother and beg for her forgiveness. The people weep and bury the child.");
+					} else {
+						q.shaping = Math.max(1, q.shaping - 2);
+						q.health -= 12;
+						q.arousal += 20;
+						out("The whole council prostrate themselves in front of the mother and beg for her forgiveness. They will have none of it, and savagely beat the councillors and any shapers they can find. Ever after, the shapers are afraid to practice their arts.")
+					}
+				}
+			},
+			{
+				text: "Compensate the mother for her loss.",
+				check: () => { return q.valuables > 1; },
+				success: () => { return 20 + q.law * 10 - q.equality * 30 + q.indenture * 10; },
+				run: (success) => {
+					if (success) {
+						q.valuables -= 2;
+						out("The weeping mother accepts the payment and goes home to mourn.");
+					} else {
+						q.shaping = Math.max(1, q.shaping - 2);
+						q.health -= 12;
+						q.arousal += 20;
+						out("The bereaved mother is incredulous at this offer of trinkets for the life of her child. The people savagely beat the councillors and any shapers they can find. Ever after, the shapers are afraid to practice their arts.")
+					}
+				}
+			},
+			{
+				text: "Tightly restrict the practice of shaping.",
+				run: () => {
+					q.shaping = 1;
+					out("The council, aghast, puts tight restrictions on the dangerous practice of shaping. The village's shapers know better than to protest.");
+				}
+			},
+		]
+	},
+	{
+		name: "warrior murder",
+		check: () => { return q.weapons > 3; },
+		show: ["gure"],
+		text: "A great Gure hunter and warrior is found standing over the corpse of another man from a minor family. It turns out that he had paid this man to make a song extolling his strength, but he had instead made one that mocked him. The matter is brought before the council.<br><br>Mater Alice of Gure pleads with the council: this is a hero of the people, and he was insulted grievously.",
+		run: () => {
+			q.population--;
+			q.happy -= 3;
+		},
+		options: [
+			{
+				text: "Execute him.",
+				success: () => { return 50 + q.law * 25 - q.weapons * 10 + q.equality * 20 - q.familyTies * 10; },
+				run: (success) => {
+					q.population--;
+					if (success) {
+						q.law++;
+						out("Hero of the people or not, the man is a murderer, and the law applies to everyone equally. The people respect the council's decision.");
+					} else {
+						q.happy -= 4;
+						q.arousal += 12;
+						out("Hero of the people or not, the man is a murderer, and the law applies to everyone equally. The people are angered that the council would so disrespect a man who has done so much for them.");
+					}
+				}
+			},
+			{
+				text: "Cut off his hand.",
+				run: () => {
+					ev({
+						text: "He insists that he would rather die than live as a cripple.",
+						options: [
+							{
+								text: "Grant his wish.",
+								run: () => {
+									q.law--;
+									q.population--;
+									q.arousal += 6;
+									out("He goes to the executioner's blade unbowed. The people revere him and disdain the council.");
+								}
+							},
+							{
+								text: "Cut off his hand.",
+								success: () => { return 50 + q.law * 25 - q.weapons * 10 + q.equality * 20 - q.familyTies * 10; },
+								run: (success) => {
+									q.effectiveness -= 2;
+									if (success) {
+										out("The council replies that a criminal's wishes mean very little. He is parted from his hand. Thereafter he sinks into drinking and despair.");
+									} else {
+										q.law--;
+										q.happy -= 4;
+										q.arousal += 8;
+										out("The council replies that a criminal's wishes mean very little. He is parted from his hand. Thereafter he sinks into drinking and despair. Somehow, the people blame the council for this.");
+									}
+								}
+							}
+						]
+					});
+				}
+			},
+			{
+				text: "Let him go with a stern warning.",
+				success: () => { return 20 + q.law * 20 + q.familyTies * 5 - q.weapons * 5; },
+				run: (success) => {
+					q.law--;
+					if (success) {
+						q.happy += 5;
+						out("He prostrates himself before the council and thanks them for their wisdom. He pledges to live his life for the people from thereon. The people are pleased to have their hero returned to them.");
+					} else {
+						q.happy -= 4;
+						q.arousal += 4;
+						out("The warrior leaves the hall with a swagger. His hunting companions celebrate him, but many others mutter that the council is foolish.");
+					}
+				}
+			},
+			{
+				text: "Indenture him to the victim's sister.",
+				check: () => { return q.indenture; },
+				success: () => { return 50 - q.familyTies * 5 - q.weapons * 5; },
+				run: (success) => {
+					q.indenture++;
+					if (success) {
+						out("The only family the victim had are his sister and her sons. The warrior is indentured to them, and can from then on be seen dressed in rags, fetching water.");
+					} else {
+						q.law--;
+						q.health -= 3;
+						out("The only family the victim had are his sister and her sons. They are unable to keep him under control, and he soon beats her up and escapes into the wilderness.");
+					}
+				}
+			},
+			{
+				text: "Imprison him.",
+				check: () => { return q.punishment == "prison"; },
+				run: () => {
+					q.population--;
+					q.law--;
+					out("He bows his head and goes to prison, but a few days later, he escapes and runs away into the wilderness. It's an open secret that his hunting companions engineered his escape.");
+				}
+			},
+		]
+	},
+	{
+		name: "nicer buildings",
+		check: () => { return q.temple && q.walls && q.turn > 20; },
+		show: [],
+		text: "As the people settle into their lives on the isle, they find that the simple dwellings they built now feel somewhat cramped and ugly.",
+		options: [
+			{
+				text: "The people should focus on survival, not vanity.",
+				run: () => {
+					q.happy -= 3;
+					q.effectiveness += 5;
+					out("The people grumble but accept this.");
+				}
+			},
+			{
+				text: "Construct new stone and wooden houses.",
+				success: () => { return 20 + q.tools * 10; },
+				run: (success) => {
+					if (success) {
+						q.happy += 8;
+						out("The new dwellings are magnificent in comparison to the old hovels, with grand hearth-rooms and generous windows lighting up the upper stories.");
+					} else {
+						out("The new houses are larger and sturdier than the old ones. The people are satisfied, and life goes on.");
+					}
+				}
+			},
+			{
+				text: "Construct new stone and wooden houses.",
+				check: () => { return q.woolmouths && q.woolmouthStrongWool; },
+				success: () => { return 60 + q.tools * 5 + q.woolmouths * 10; },
+				run: (success) => {
+					if (success) {
+						q.happy += 16;
+						q.arousal += 5;
+						out("The super-strong fibres exuded by the woolmouths offer architectural possibilities undreamt of in the old country. The people build enormeous hearth-halls and magnificent spires.");
+					} else {
+						out("Woolmouth weave is a promising material, but not an easy one to work with. Still, the new dwellings are prettier and roomier than the old ones. ");
+					}
+				}
+			},
+		]
+	},
+	{
+		name: "debts",
+		check: () => { return q.tools > 2 && q.valuables > 1 && q.temple && q.turn > 25; },
+		show: ["eshling", "pawl"],
+		text: "What started out as a few simple buildings to shelter from the elements has now turned into a quite beautiful little town. Houses sport elaborate ornaments, and the people are dressed in colourful garments. But this newfound wealth is not equally distributed: Despite starting from nothing, the Pawl family have quickly found themselves in a position of wealth and power again, whereas the Eshlings are impoverished, and owe increasing debts to the Pawls.",
+		options: [
+			{
+				text: "Rule that such debts must be regularly forgiven.",
+				success: () => { return 20 + q.law * 20 - q.familyTies * 10 + q.tradition * 10; },
+				run: (success) => {
+					if (success) {
+						q.eshlingHappy++;
+						q.equality++;
+						out("It's not proper for the people to keep debts over years and lifetimes. The council convinces the Pawls of the truth of this, and the debts are forgiven.");
+					} else {
+						q.eshlingHappy++;
+						q.pawlHappy--;
+						out("It's not proper for the people to keep debts over years and lifetimes. The Pawls complain at length, but eventually obey.");
+					}
+				}
+			},
+			{
+				text: "Convince the Pawls to be generous to their debtors.",
+				success: () => { return 30 + q.pawlHappy * 40; },
+				run: (success) => {
+					q.familyTies++;
+					if (success) {
+						q.eshlingHappy++;
+						out("The Pawls are amenable to flattery, and so they forgive many of the Eshlings' debts.");
+					} else {
+						q.eshlingHappy--;
+						out("The Pawls refuse to give hand-outs to the lazy Eshlings.");
+					}
+				}
+			},
+			{
+				text: "We are all one people, and we should hold all in common.",
+				success: () => { return q.equality * 30 + q.tribe * 30 - q.familyTies * 40 - q.tradition * 10; },
+				run: (success) => {
+					if (success) {
+						q.eshlingHappy++;
+						q.effectiveness += 3;
+						q.equality++;
+						q.tribe++;
+						q.familyTies--;
+						out("The people agree: this idea of debts between people and families is absurd. The debts are abolished.");
+					} else {
+						q.eshlingHappy--;
+						out("The people balk at this: each family should reap the rewards of their labor. With hard work, the Eshlings will be able to pay their debts in time.");
+					}
+				}
+			},
+			{
+				text: "Do nothing.",
+				run: () => {
+					q.eshlingHappy--;
+					out("The people arrived on the isle with hardly anything, and the Pawls can hardly be blamed for making the best of their situation. The Eshlings beg to disagree.");
 				}
 			}
 		]

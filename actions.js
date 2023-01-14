@@ -1,6 +1,6 @@
 function doForage() {
 	afterAction();
-	q.food += 10 + Math.ceil(strength() / 3) + q.forage * 15;
+	q.food += 20 + Math.ceil(strength() / 3) + q.forage * 10;
 	out("You send out additional foragers in search of food.");
 }
 
@@ -94,7 +94,7 @@ var watchtower = {
 	options: [
 		{
 			text: "Build a wooden watchtower.",
-			danger: () => { return 70 - q.tools * 25; },
+			danger: () => { return 60 - q.tools * 25; },
 			run: (success, harm) => {
 				q.watchtower = true;
 				q.defenses++;
@@ -138,7 +138,7 @@ var walls = {
 	options: [
 		{
 			text: "Build a wooden palisade.",
-			danger: () => { return 80 - q.tools * 25; },
+			danger: () => { return 75 - q.tools * 25; },
 			run: (success, harm) => {
 				q.walls = true;
 				q.defenses++;

@@ -66,6 +66,7 @@ q.difficulty = -15;
 q.moodPerTurn = 0;
 q.healthPerTurn = 1;
 q.indenture = 0;
+q.selfShaping = false;
 
 var nextPickEvent = false;
 var nextDoTurn = false;
@@ -370,6 +371,10 @@ function turn() {
 				q.arousal--;
 			}
 		}
+		// Cooling anger.
+		if (q.happy < 30 && q.arousal >= 70) {
+			q.arousal -= 2;
+		}
 		if (q.food < 0) {
 			q.health -= 5;
 			if (q.health < 30) {
@@ -470,7 +475,7 @@ function strength() {
 function next() {
 	if (nextPickEvent) {
 		nextPickEvent = false;
-		evt = Math.random() < 0.75 ? pickEvent(events, "time: ") : null;
+		evt = /*Math.random() < 0.8 ? */pickEvent(events, "time: ");// : null;
 		if (evt) {
 			if (evt.run) { evt.run(); }
 			if (evt.show) {
