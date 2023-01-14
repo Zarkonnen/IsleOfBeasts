@@ -407,10 +407,10 @@ function turn() {
 }
 
 function ev(e) {
-	if (ev.name) {
-		console.log(ev.name);
+	if (e.name) {
+		console.log(e.name);
 	} else {
-		console.log(ev.text);
+		console.log(e.text);
 	}
 	outcome = null;
 	evt = e;
@@ -482,8 +482,13 @@ function strength() {
 function next() {
 	if (nextPickEvent) {
 		nextPickEvent = false;
-		evt = /*Math.random() < 0.8 ? */pickEvent(events, "time: ");// : null;
+		evt = pickEvent(events, "time: ");
 		if (evt) {
+			if (evt.name) {
+				console.log(evt.name);
+			} else {
+				console.log(evt.text);
+			}
 			if (evt.run) { evt.run(); }
 			if (evt.show) {
 				evt.show.forEach(s => {
