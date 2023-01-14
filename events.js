@@ -57,7 +57,7 @@ var difficultyEvent = {
 	text: "As we were marched towards the ships, we expected our new life to be:",
 	options: [
 		{
-			text: "Tough but survivable",
+			text: "Tough",
 			run: () => {
 				q.difficulty = -25;
 				q.showStats = true;
@@ -77,7 +77,7 @@ var difficultyEvent = {
 			}
 		},
 		{
-			text: "A daily struggle",
+			text: "Very hard",
 			run: () => {
 				q.difficulty = -5;
 				q.showStats = true;

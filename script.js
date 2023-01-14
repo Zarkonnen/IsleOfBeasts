@@ -1,4 +1,4 @@
-var version = "v2";
+var version = "v3";
 
 var q = {};
 q.population = 109;
@@ -179,7 +179,7 @@ function quantityDesc(type, q) {
 function rStats() {
 	if (!q.showStats) { return ""; }
 	var stats = ["population", "valuables", "food"].filter(n  => {
-		return !!q[n];
+		return n == "food" || !!q[n];
 	}).map(n => {
 		var o = {t: statNames[n], v: q[n]};
 		o.delta = q[n] - prev[n];

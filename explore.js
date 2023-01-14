@@ -4,7 +4,7 @@ var explore = [
 		check: () => { return true; },
 		important: () => { return true; },
 		show: ["gure"],
-		text: "The young men least affected by the crossing to the Isle soon strike out to explore beyond the bay where you were stranded. They are led by several eager members of the Gure family. They scramble up the vine-covered inclines surrounding the bay to find an expanse of white sand dotted with stands of grass and glossy green bushes that look like nests of serpents. Unfamiliar insects scuttle past, and there is the sound of what might be shore birds.<br><br>Further in, the land rises up and becomes forested. Stone pillars rise from in between the trees. The pillars become taller and more densely spaced in the distance until they turn into mountains.",
+		text: "The young people least affected by the crossing to the Isle soon strike out to explore beyond the bay where you were stranded. They are led by several eager members of the Gure family. They scramble up the vine-covered inclines surrounding the bay to find an expanse of white sand dotted with stands of grass and glossy green bushes that look like nests of serpents. Unfamiliar insects scuttle past, and there is the sound of what might be shore birds.<br><br>Further in, the land rises up and becomes forested. Stone pillars rise from in between the trees. The pillars become taller and more densely spaced in the distance until they turn into mountains.",
 		options: [
 			{
 				text: "Go up a nearby hill to get a clearer idea of the surrounding landscape.",
