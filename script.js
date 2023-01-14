@@ -1,3 +1,5 @@
+var version = "v2";
+
 var q = {};
 q.population = 109;
 q.food = 357;
@@ -105,6 +107,7 @@ function render() {
 		}
 		content += rOutcome();
 		content += rEvent();
+		content += '<div style="text-align: center;">' + version + '</div>';
 		$("body").html(content);
 		wireEvent();
 		updatePrevs();
@@ -404,12 +407,18 @@ function turn() {
 }
 
 function ev(e) {
+	if (ev.name) {
+		console.log(ev.name);
+	} else {
+		console.log(ev.text);
+	}
 	outcome = null;
 	evt = e;
 	render();
 }
 
 function win(o) {
+	console.log("win: " + o);
 	finished = true;
 	outcome = o;
 	evt = null
@@ -417,6 +426,7 @@ function win(o) {
 }
 
 function lose(o) {
+	console.log("lose: " + o);
 	finished = true;
 	outcome = o;
 	evt = null;
@@ -432,6 +442,7 @@ function addOut(o) {
 }
 
 function out(o, show) {
+	console.log(o);
 	outcome = o;
 	evt = null;
 	if (show) {
@@ -441,6 +452,7 @@ function out(o, show) {
 }
 
 function done() {
+	console.log("done");
 	outcome = null;
 	evt = null;
 	next();
@@ -455,12 +467,7 @@ function cancel() {
 }
 
 function pickOption(o) {
-	if (o.success) {
-		console.log("success " + o.success());
-	}
-	if (o.danger) {
-		console.log("danger " + o.danger());
-	}
+	console.log(o.text);
 	o.run(Math.random() * 100 + q.difficulty < (o.success ? o.success() : 100), Math.random() * 100 - q.difficulty < (o.danger ? o.danger() : 0));
 }
 
@@ -526,3 +533,5 @@ function pickEvent(l, prefix) {
 		}
 	});
 });*/
+
+//console.log(events.length + explore.length);
