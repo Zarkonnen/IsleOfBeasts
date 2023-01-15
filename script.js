@@ -1,4 +1,4 @@
-var version = "v6";
+var version = "v7";
 
 var q = {};
 q.population = 109;
@@ -362,6 +362,9 @@ function turn() {
 	if (!q.houses) {
 		q.health -= 1;
 	}
+	if (!q.canExplore) {
+		q.happy = Math.min(q.happy, 85);
+	}
 	if (q.population < 12) {
 		lose("Only a few people remain in the village. They despair and scatter. Some try to return to the old country, others walk away into the forest in search of something they cannot quite explain. The Isle of Beasts has destroyed your people.");
 		return;
@@ -525,6 +528,9 @@ function strength() {
 }
 
 function next() {
+	if (q.turn > 55) {
+		q["time: endgame"] = false;
+	}
 	if (nextPickEvent) {
 		nextPickEvent = false;
 		evt = pickEvent(events, "time: ");
@@ -541,9 +547,9 @@ function next() {
 				});
 			}
 			q["time: " + evt.name] = true;
-			if (evt.name == "endgame") {
+			/*if (evt.name == "endgame") {
 				alert("Now rendering endgame.");
-			}
+			}*/
 			render();
 			return;
 		}

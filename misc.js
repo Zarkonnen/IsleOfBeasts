@@ -73,7 +73,7 @@ var hunt = {
 						if (q.codgers > 1) {
 							q.codgers--;
 						}
-						out("The codgers sniff at the ground in a particular spot and start digging. After a while, a horrendous roar can be heard from deep underground. A great underground struggle begins. Eventually, the badly injured codgers drag a monstrous shark-skinned reptile to the surface");
+						out("The codgers sniff at the ground in a particular spot and start digging. After a while, a horrendous roar can be heard from deep underground. A great underground struggle begins. Eventually, the badly injured codgers drag a monstrous shark-skinned reptile to the surface.");
 					} else {
 						out("The codgers snuffle and paw at the ground, and begin digging. They haul half-dead animals like huge multi-legged squirrels to the surface, where they are dispatched by the hunters.");
 					}
