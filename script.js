@@ -1,4 +1,4 @@
-var version = "v7";
+var version = "v8";
 
 var q = {};
 q.population = 109;
@@ -194,7 +194,13 @@ function rStats() {
 		}
 		return o;
 	});
-	stats.push({t: "per Turn", v: foodDelta(), delta: "", flavor: "same"});
+	var fd = foodDelta();
+	if (fd > 0) {
+		fd = "+" + fd;
+	} else {
+		fd = "" + fd;
+	}
+	stats.push({t: "per Turn", v: fd, delta: "", flavor: "same"});
 	stats.push({t: "Mood", v: mood(), delta: "", flavor: "same"});
 	stats.push({t: "Health", v: health(), delta: "", flavor: "same"});
 	stats = stats.concat(["medicine", "tools", "weapons"].filter(n  => {

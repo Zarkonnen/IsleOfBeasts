@@ -1575,7 +1575,7 @@ var events = [
 		check: () => { return q.punishment && q.hall && q.turn > 12; },
 		show: ["jenet", "gure", "pawl", "aphal"],
 		run: () => { q.population--; },
-		text: "A Jenet man is dead is dead at the hands of two others, a Gure and a Pawl. A council meeting is called. Supposedly, the Jenet man knew a secret of the Gure, and when the Gure and Pawl man got drunk one night, they got it into their heads that the other was going to use this secret for blackmail. So they waylaid him and beat him, supposedly only to scare him, but when they were done, he was dead on the ground.<br><br>Pater Tim of the Jenets speaks first. To him, the situation is simple: the murderers have admitted to their crime. A life for a life surely is fair. They must be put to death.<br><br>Ah, Pater Zeno of the Aphals interjects. Yes, one life for one life, but here no one knows who made the killing blow. You cannot have two murderers, so you cannot kill them.",
+		text: "A Jenet man is dead at the hands of two others, a Gure and a Pawl. A council meeting is called. Supposedly, the Jenet man knew a secret of the Gure, and when the Gure and Pawl man got drunk one night, they got it into their heads that the other was going to use this secret for blackmail. So they waylaid him and beat him, supposedly only to scare him, but when they were done, he was dead on the ground.<br><br>Pater Tim of the Jenets speaks first. To him, the situation is simple: the murderers have admitted to their crime. A life for a life surely is fair. They must be put to death.<br><br>Ah, Pater Zeno of the Aphals interjects. Yes, one life for one life, but here no one knows who made the killing blow. You cannot have two murderers, so you cannot kill them.",
 		options: [
 			{
 				text: "Execute them both",
@@ -3055,7 +3055,7 @@ var events = [
 	{
 		name: "additional babies",
 		check: () => { return q.houses && q.turn > 27 && q.health > 50 && q.happy > 40; },
-		run: () => { q.population += 11; }
+		run: () => { q.population += 11; },
 		show: [],
 		text: "Good health and good cheer means that there are plenty new babies in the village.",
 		options: [
