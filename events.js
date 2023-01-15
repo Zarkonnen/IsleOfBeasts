@@ -3053,6 +3053,19 @@ var events = [
 		]
 	},
 	{
+		name: "additional babies",
+		check: () => { return q.houses && q.turn > 27 && q.health > 50 && q.happy > 40; },
+		run: () => { q.population += 11; }
+		show: [],
+		text: "Good health and good cheer means that there are plenty new babies in the village.",
+		options: [
+			{
+				text: "Adorable!",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
 		name: "wall guarding",
 		check: () => { return q.walls; },
 		important: () => { return q.turn > 14; },
