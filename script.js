@@ -1,4 +1,4 @@
-var version = "v9";
+var version = "v10";
 
 var q = {};
 q.population = 109;
@@ -368,7 +368,7 @@ function turn() {
 	if (!q.houses) {
 		q.health -= 1;
 	}
-	if (!q.canExplore || q.population < 80) {
+	if (!q.canExplore || q.population < 80 || q.aphalHappy < -1 || q.gureHappy < -1 || q.eshlingHappy < -1 || q.pawlHappy < -1 || q.jenetHappy < -1) {
 		q.happy = Math.min(q.happy, 85);
 	}
 	if (q.population < 12) {
