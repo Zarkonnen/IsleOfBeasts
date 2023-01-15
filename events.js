@@ -1660,6 +1660,7 @@ var events = [
 	{
 		name: "mocking song",
 		check: () => { return q.temple; },
+		run: () => { q.songs++; },
 		show: ["pawl"],
 		text: "The people like to make up new songs to old tunes. Sometimes, the songs are spontaneous. Other times, they are carefully thought out. Some songs become very popular. Right now, the most popular song in the village mocks the love life of a conceited young Pawl woman who strung along her two suitors for so long that they both gave up and got married to other women, supposedly on the same day. The woman is not named in the song, but everyone knows - or thinks they know - who it is.<br><br>Mater Lyssa of Pawl brings this up in council and requests something be done before the young woman dies of shame.",
 		options: [
@@ -2876,7 +2877,7 @@ var events = [
 	},
 	{
 		name: "first song",
-		check: () => { return q.hall; },
+		check: () => { return q.hall && q.songs == 0; },
 		show: [],
 		text: "The people like to have a song for every occasion, and they love to make up new songs to old tunes. Now that they've settled in, the question arises of what the first new song on the isle should be.",
 		options: [
@@ -3057,7 +3058,7 @@ var events = [
 		check: () => { return q.houses && q.turn > 27 && q.health > 50 && q.happy > 40; },
 		run: () => { q.population += 11; },
 		show: [],
-		text: "Good health and good cheer means that there are plenty new babies in the village.",
+		text: "Good health and good cheer means that there are plenty of new babies in the village.",
 		options: [
 			{
 				text: "Adorable!",
