@@ -15,15 +15,16 @@ var startEvent = {
 		{
 			text: "Our weapons, to defend ourselves",
 			run: () => {
-				q.arousal += 10;
+				q.arousal += 15;
 				q.weapons++;
 				ev(difficultyEvent);
 			}
 		},
 		{
-			text: "Our valuables, sewn into secret pockets in our ragged-looking coats",
+			text: "Our valuables, sewn into secret pockets in our coats",
 			run: () => {
 				q.valuables += 3;
+				q.happy += 10;
 				ev(difficultyEvent);
 			}
 		},
@@ -37,8 +38,9 @@ var startEvent = {
 		{
 			text: "As much food as we could possibly carry",
 			run: () => {
-				q.arousal -= 5;
 				q.food += 200;
+				q.health += 4;
+				q.happy += 3;
 				ev(difficultyEvent);
 			}
 		},
@@ -47,6 +49,13 @@ var startEvent = {
 			run: () => {
 				q.medicine++;
 				q.health += 8;
+				ev(difficultyEvent);
+			}
+		},
+		{
+			text: "Any friends and servants willing to follow us into exile",
+			run: () => {
+				q.population += 21;
 				ev(difficultyEvent);
 			}
 		},
