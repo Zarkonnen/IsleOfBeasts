@@ -362,7 +362,7 @@ function turn() {
 	if (!q.houses) {
 		q.health -= 1;
 	}
-	if (!q.canExplore) {
+	if (!q.canExplore || q.population < 80) {
 		q.happy = Math.min(q.happy, 85);
 	}
 	if (q.population < 12) {
