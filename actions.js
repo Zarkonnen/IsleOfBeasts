@@ -1,6 +1,6 @@
 function doForage() {
 	afterAction();
-	q.food += 20 + Math.ceil(strength() / 3) + q.forage * 10;
+	q.food += 30 + Math.ceil(strength() / 3) + q.forage * 10;
 	out("You send out additional foragers in search of food.");
 }
 

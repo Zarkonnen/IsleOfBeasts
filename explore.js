@@ -95,7 +95,7 @@ var explore = [
 						out("The creature comes closer and tears the morsel of meat out of your explorer's hand. Then it discovers that the hand is also made of meat, and comes back for seconds. More of the creatures emerge from the bushes, and the explorers run away, cursing.");
 					} else {
 						q.blademouths = 1;
-						out("The creature comes closer and enthusiastically grips the proferred bit or jerky in its pincers before gulping it down. More of them emerge from the bushes, eager for treats.<br><br>Unlike most other animals encountered on the isle so far, these seem almost domesticated, and they willingly follow your explorers home, settling into a life as pets and hunting companions.");
+						out("The creature comes closer and enthusiastically grips the proferred bit of jerky in its pincers before gulping it down. More of them emerge from the bushes, eager for treats.<br><br>Unlike most other animals encountered on the isle so far, these seem almost domesticated, and they willingly follow your explorers home, settling into a life as pets and hunting companions.");
 					}
 				}
 			},

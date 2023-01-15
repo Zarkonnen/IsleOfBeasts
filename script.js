@@ -1,4 +1,4 @@
-var version = "v4";
+var version = "v5";
 
 var q = {};
 q.population = 109;
@@ -65,10 +65,12 @@ q.walls = false;
 q.reinforcedWalls = false;
 q.humanShaping = 0;
 q.difficulty = -15;
+q.difficultyMult = 1;
 q.moodPerTurn = 0;
 q.healthPerTurn = 1;
 q.indenture = 0;
 q.selfShaping = false;
+q.canExplore = true;
 
 var nextPickEvent = false;
 var nextDoTurn = false;
@@ -76,7 +78,7 @@ var evt = null;
 var outcome = null;
 var finished = false;
 
-var statNames = {population: "Population", "valuables": "Valuables", "food": "Food", "medicine": "Medicine", "tools": "Tools", "weapons": "Weapons", "blademouths": "Blademouths", "codgers": "Codgers", "woolmouths": "Woolmouths", "spindrakes": "Spindrakes"};
+var statNames = {turn: "Turn", population: "Population", "valuables": "Valuables", "food": "Food", "medicine": "Medicine", "tools": "Tools", "weapons": "Weapons", "blademouths": "Blademouths", "codgers": "Codgers", "woolmouths": "Woolmouths", "spindrakes": "Spindrakes"};
 
 var prev = {};
 
@@ -178,7 +180,7 @@ function quantityDesc(type, q) {
 
 function rStats() {
 	if (!q.showStats) { return ""; }
-	var stats = ["population", "valuables", "food"].filter(n  => {
+	var stats = ["turn", "population", "valuables", "food"].filter(n  => {
 		return n == "food" || !!q[n];
 	}).map(n => {
 		var o = {t: statNames[n], v: q[n]};
@@ -258,7 +260,9 @@ function rFamilies() {
 
 function rActions() {
 	var as = [];
-	as.push({t: "Explore", f: "doExplore"});
+	if (q.canExplore) {
+		as.push({t: "Explore", f: "doExplore"});
+	}
 	if (q.forage > 0) {
 		as.push({t: "Forage", f: "doForage"});
 	}
@@ -312,8 +316,8 @@ function rEvent() {
 	var options = evt.options.filter(o => o.check ? o.check() : true);
 	for (var i = 0; i < options.length; i++) {
 		options[i].id = i;
-		options[i].chanceText = options[i].success ? chanceText(options[i].success() - q.difficulty) : "";
-		options[i].dangerText = options[i].danger ? dangerText(options[i].danger() + q.difficulty) : "";
+		options[i].chanceText = options[i].success ? chanceText(options[i].success() * q.difficultyMult - q.difficulty) : "";
+		options[i].dangerText = options[i].danger ? dangerText(options[i].danger() / q.difficultyMult + q.difficulty) : "";
 		options[i].chanceStyle = options[i].success ? "challengeChance" : "";
 		options[i].dangerStyle = options[i].danger ? "challengeDanger" : "";
 	}
@@ -352,7 +356,9 @@ function turn() {
 	q.turn++;
 	q.food += foodDelta();
 	q.health += q.medicine + q.healthPerTurn;
-	q.happy += q.moodPerTurn;
+	if (!(q.moodPerTurn > 0 && q.happy > 60)) {
+		q.happy += q.moodPerTurn;
+	}
 	if (!q.houses) {
 		q.health -= 1;
 	}
@@ -407,30 +413,33 @@ function turn() {
 }
 
 function ev(e) {
-	if (e.name) {
+	/*if (e.name) {
 		console.log(e.name);
 	} else {
 		console.log(e.text);
-	}
+	}*/
+	//outCounter++;
 	outcome = null;
 	evt = e;
 	render();
 }
 
 function win(o) {
-	console.log("win: " + o);
+	//console.log("win: " + o);
 	finished = true;
 	outcome = o;
 	evt = null
 	render();
+	//outCounter++;
 }
 
 function lose(o) {
-	console.log("lose: " + o);
+	//console.log("lose: " + o);
 	finished = true;
 	outcome = o;
 	evt = null;
 	render();
+	//outCounter++;
 }
 
 function addOut(o) {
@@ -441,8 +450,11 @@ function addOut(o) {
 	}
 }
 
+//var outCounter = 0;
+
 function out(o, show) {
-	console.log(o);
+	//outCounter++;
+	//console.log(o);
 	outcome = o;
 	evt = null;
 	if (show) {
@@ -452,11 +464,44 @@ function out(o, show) {
 }
 
 function done() {
-	console.log("done");
+	//outCounter++;
+	//console.log("done");
 	outcome = null;
 	evt = null;
 	next();
 }
+
+/*events.forEach(ex => {
+	outCounter = 0;
+	ex.check();
+	if (ex.run) { ex.run(); }
+	if (ex.important) { ex.important(); }
+	if (outCounter != 0) {
+		console.log(ex.name + " bad");
+	}
+	ex.options.forEach(o => {
+		outCounter = 0;
+		o.run(false, false);
+		if (outCounter != 1) {
+			console.log(ex.name + ", " + o.text + " false false " + outCounter);
+		}
+		outCounter = 0;
+		o.run(true, false);
+		if (outCounter != 1) {
+			console.log(ex.name + ", " + o.text + " true false " + outCounter);
+		}
+		outCounter = 0;
+		o.run(false, true);
+		if (outCounter != 1) {
+			console.log(ex.name + ", " + o.text + " false true " + outCounter);
+		}
+		outCounter = 0;
+		o.run(true, true);
+		if (outCounter != 1) {
+			console.log(ex.name + ", " + o.text + " true true " + outCounter);
+		}
+	});
+});*/
 
 function cancel() {
 	nextPickEvent = false;
@@ -467,8 +512,8 @@ function cancel() {
 }
 
 function pickOption(o) {
-	console.log(o.text);
-	o.run(Math.random() * 100 + q.difficulty < (o.success ? o.success() : 100), Math.random() * 100 - q.difficulty < (o.danger ? o.danger() : 0));
+	//console.log(o.text);
+	o.run(Math.random() * 100 + q.difficulty < (o.success ? o.success() * q.difficultyMult : 100), Math.random() * 100 - q.difficulty < (o.danger ? o.danger() / q.difficultyMult : 0));
 }
 
 function sum(a) {
@@ -484,11 +529,11 @@ function next() {
 		nextPickEvent = false;
 		evt = pickEvent(events, "time: ");
 		if (evt) {
-			if (evt.name) {
+			/*if (evt.name) {
 				console.log(evt.name);
 			} else {
 				console.log(evt.text);
-			}
+			}*/
 			if (evt.run) { evt.run(); }
 			if (evt.show) {
 				evt.show.forEach(s => {
@@ -496,6 +541,9 @@ function next() {
 				});
 			}
 			q["time: " + evt.name] = true;
+			if (evt.name == "endgame") {
+				alert("Now rendering endgame.");
+			}
 			render();
 			return;
 		}

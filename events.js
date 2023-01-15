@@ -79,7 +79,8 @@ var difficultyEvent = {
 		{
 			text: "Very hard",
 			run: () => {
-				q.difficulty = -5;
+				q.difficulty = -15;
+				q.difficultyMult = 0.85;
 				q.showStats = true;
 				q.healthPerTurn = 0;
 				q.moodPerTurn = -1;
@@ -147,7 +148,7 @@ var events = [
 			{
 				text: "Rule that all woolmouths shall be held in common by the people.",
 				success: () => {
-					return 20 + q.happy * 0.25 + q.equality * 10 + q.tribe * 20 + q.pawlHappy * 10;
+					return 10 + q.happy * 0.25 + q.equality * 10 + q.tribe * 20 + q.pawlHappy * 10;
 				},
 				run: (success) => {
 					q.eshlingHappy++;
@@ -1127,7 +1128,7 @@ var events = [
 		name: "eshling vs aphal mural",
 		check: () => { return q.houses; },
 		show: ["eshling", "aphal"],
-		text: "The Aphal family have painted a mural of the old country in their hearth room. It shows all the families. The Aphals are, understandably, front and center, but the Eshlings are drawn very small and ugly, in the very corner of the mural.<br><br>One day, Pater Sara of the Eshling visits the Aphal hearth room and sees the mural. He goes straight to the council and denounces the Aphals for the way that they shame his family.<br><br>Pater Zeno, the Aphal patriarch, is called in. He points out that this is a mural in the Aphal's hearth room, which it is a privilege for an outsider to even enter, and private to his family.<br><br>Sara counters that even so, he would prefer it if his family were not represented as ugly little humunculi in their neighbours' house.",
+		text: "The Aphal family have painted a mural of the old country in their hearth room. It shows all the families. The Aphals are, understandably, front and center, but the Eshlings are drawn very small and ugly, in the very corner of the mural.<br><br>One day, Pater Sara of the Eshling visits the Aphal hearth room and sees the mural. He goes straight to the council and denounces the Aphals for the way that they shame his family.<br><br>Pater Zeno, the Aphal patriarch, is called in. He points out that this is a mural in the Aphals' hearth room, which it is a privilege for an outsider to even enter, and private to his family.<br><br>Sara counters that even so, he would prefer it if his family were not represented as ugly little homunculi in their neighbours' house.",
 		options: [
 			{
 				text: "Demand that the Aphals repaint that part of the mural to show the Eshlings in a more favourable light.",
@@ -1212,7 +1213,7 @@ var events = [
 			},
 			{
 				text: "Remind the Pawls that since there was no formal betrothal, they have nothing to complain about.",
-				run: () => { q.pawlHappy--; q.law++; q.familyTies--; out("The Pawls complain to anyone who will listen, but the council's is technically sound."); }
+				run: () => { q.pawlHappy--; q.law++; q.familyTies--; out("The Pawls complain to anyone who will listen, but the council's judgement is technically sound."); }
 			},
 		]
 	},
@@ -1248,7 +1249,7 @@ var events = [
 		name: "first theft",
 		check: () => { return q.hall && q.happy < 60 && q.turn > 6; },
 		show: ["aphal", "pawl", "eshling", "jenet"],
-		text: "As was perhaps inevitable, the first theft in your new village is brought before the council. An Aphal youth has stolen an axe from an older Pawl woman. The youth claims that she is not using it anymore, and that he can make better use of it.<br><br>Pater Zeno, the Aphal patriarch, pleads that the young fool be spared any punishment this once, and that his family will keep an eye on him from now on.<br><br>Mater Lyssa, the Pawl matriarch, points out that in the old country, the punishment for such a theft would be for the thief's hand to be cut off.<br><br>Zeno replies that the village can hardly afford to mutilate one of their young men like that.<br><br>Pater Sara of the Eshlings suggests a third way: let the youth be indentured to the Pawls for five years to pay off his crime. This was how it was done in the very old days, even before your people moved to the old country.<br><br>Finally, the Jenet patriarch, Pater Tim, suggests that the youth be imprisoned for a year to let him think on his crimes",
+		text: "As was perhaps inevitable, the first theft in your new village is brought before the council. An Aphal youth has stolen an axe from an older Pawl woman. The youth claims that she is not using it anymore, and that he can make better use of it.<br><br>Pater Zeno, the Aphal patriarch, pleads that the young fool be spared any punishment this once, and that his family will keep an eye on him from now on.<br><br>Mater Lyssa, the Pawl matriarch, points out that in the old country, the punishment for such a theft would be for the thief's hand to be cut off.<br><br>Zeno replies that the village can hardly afford to mutilate one of their young men like that.<br><br>Pater Sara of the Eshlings suggests a third way: let the youth be indentured to the Pawls for four years to pay off his crime. This was how it was done in the very old days, even before your people moved to the old country.<br><br>Finally, the Jenet patriarch, Pater Tim, suggests that the youth be imprisoned for a year to let him think on his crimes",
 		options: [
 			{
 				text: "Let the youth go with a warning",
@@ -1971,7 +1972,7 @@ var events = [
 		name: "pre-endgame",
 		check: () => { return q.turn > 51 && q.population > 25; },
 		important: () => { return q.turn > 51; },
-		run: () => { q.population -= 3; q.forage = 0; },
+		run: () => { q.population -= 3; q.forage = 0; q.canExplore = false; },
 		show: [],
 		text: "The foragers return in a panic. The eye-stalks have covered all of the island except for a small area around the village. Whenever they encounter someone, they seize them and rip them apart.",
 		options: [
@@ -1990,7 +1991,7 @@ var events = [
 		options: [
 			{
 				text: "Wait it out within the walls.",
-				success: () => { return q.food * 7 / q.population + q.defenses * 5; },
+				success: () => { return -70 + q.food * 7 / q.population + q.defenses * 10; },
 				check: () => { return q.walls; },
 				run: (success) => {
 					if (success) {
@@ -2107,7 +2108,7 @@ var events = [
 									success: () => { return -40 + q.shaping * 12 + q.humanShaping * 12; },
 									run: (success) => {
 										if (success) {
-											win("The shapers mutter that superiority can mean any number of things, but they confer, and then begin their art. The next day, the people wake up a scintillating many-eyed centaurs, fast and strong and wise - and the eye-stalks, seeing this, retreat back into the ground.<br><br>Now begins a new era for the people, one of resplendent glory on this magnificent isle.");
+											win("The shapers mutter that superiority can mean any number of things, but they confer, and then begin their art. The next day, the people wake up as scintillating many-eyed centaurs, fast and strong and wise - and the eye-stalks, seeing this, retreat back into the ground.<br><br>Now begins a new era for the people, one of resplendent glory on this magnificent isle.");
 										} else {
 											lose("That night, the shapers set to work. But they have never attempted to shape humans before. The people's shapes waver and blur, and then horns and antlers and tentacles and scales erupt from their orifices, and their limbs contort and snap and their bodies give way as they writhe on the floor and die in agony.");
 										}
@@ -3463,7 +3464,7 @@ var events = [
 				}
 			},
 			{
-				text: "Construct new stone and wooden houses.",
+				text: "Construct houses made of woolmouth fibre.",
 				check: () => { return q.woolmouths && q.woolmouthStrongWool; },
 				success: () => { return 60 + q.tools * 5 + q.woolmouths * 10; },
 				run: (success) => {
