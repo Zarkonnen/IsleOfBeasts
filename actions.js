@@ -734,22 +734,22 @@ var shaping = {
 
 function doCareForAnimals() {
 	afterAction();
-	if (q.woolmouths && q.woolmouths < 5 && Math.random() * 100 + q.difficulty < 60 + q.animals * 20 - q.woolmouths * 30) {
+	if (q.woolmouths && q.woolmouths < maxHerdSize() && Math.random() * 100 + q.difficulty < 60 + q.animals * 20 - q.woolmouths * 30) {
 		q.woolmouths++;
 		out("The villagers take care of the woolmouth herds, increasing them in size.");
 		return;
 	}
-	if (q.blademouths && q.blademouths < 5 && Math.random() * 100 + q.difficulty < 50 + q.animals * 20 - q.blademouths * 30) {
+	if (q.blademouths && q.blademouths < maxHerdSize() && Math.random() * 100 + q.difficulty < 50 + q.animals * 20 - q.blademouths * 30) {
 		q.blademouths++;
 		out("The villagers take care of the blademouths. Soon, there are plenty of new blademouth kittens.");
 		return;
 	}
-	if (q.codgers && q.codgers < 5 && Math.random() * 100 + q.difficulty < 40 + q.animals * 20 - q.codgers * 30) {
+	if (q.codgers && q.codgers < maxHerdSize() && Math.random() * 100 + q.difficulty < 40 + q.animals * 20 - q.codgers * 30) {
 		q.codgers++;
 		out("The villagers take care of the codgers. Soon, there are plenty of new codger cubs.");
 		return;
 	}
-	if (q.spindrakes && q.spindrakes < 5 && Math.random() * 100 + q.difficulty < 30 + q.animals * 20 - q.spindrakes * 40) {
+	if (q.spindrakes && q.spindrakes < maxHerdSize() && Math.random() * 100 + q.difficulty < 30 + q.animals * 20 - q.spindrakes * 40) {
 		q.spindrakes++;
 		q.happy += 3;
 		q.arousal += 3;

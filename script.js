@@ -1,4 +1,4 @@
-var version = "v11";
+var version = "v12";
 
 var q = {};
 q.population = 109;
@@ -226,6 +226,10 @@ function herdSize(n) {
 	return ["None", "Few", "Some", "Many", "Large Herds", "Vast Herds"][n];
 }
 
+function maxHerdSize() {
+	return 1 + Math.floor(q.population / 30);
+}
+
 function rAnimals() {
 	var stats = ["blademouths", "codgers", "woolmouths", "spindrakes"].filter(n  => { return q[n] });
 	if (stats.length == 0) { return ""; }
@@ -346,8 +350,8 @@ function rOutcome() {
 }
 
 function foodDelta() {
-	var d = -15;
-	d += Math.ceil(strength() / 8);
+	var d = -25;
+	d += Math.ceil(strength() / 3);
 	d += q.forage * 10;
 	d += q.woolmouths * (q.woolmouthMeat ? 12 : 8);
 	d += q.codgers * 4;
@@ -360,9 +364,13 @@ function foodDelta() {
 
 function turn() {
 	q.turn++;
+	q.blademouths = Math.min(q.blademouths, maxHerdSize());
+	q.codgers = Math.min(q.codgers, maxHerdSize());
+	q.woolmouths = Math.min(q.woolmouths, maxHerdSize());
+	q.spindrakes = Math.min(q.spindrakes, maxHerdSize());
 	q.food += foodDelta();
 	q.health += q.medicine + q.healthPerTurn;
-	if (!(q.moodPerTurn > 0 && q.happy > 60)) {
+	if (!(q.moodPerTurn > 0 && q.happy > 60) && !(q.moodPerTurn < 0 && q.happy < 4)) {
 		q.happy += q.moodPerTurn;
 	}
 	if (!q.houses) {
@@ -399,18 +407,21 @@ function turn() {
 				q.population = Math.ceil(q.population * 3 / 4);
 				addOut("Your food stores have run out, and your people are dying.");
 			} else {
-				q.population = Math.ceil(q.population * 5 / 6);
+				q.population = Math.ceil(q.population * 7 / 8);
 				addOut("Your food stores have run out, and your people are starving.");
 			}
 		} else if (q.health < 10) {
-			q.population = Math.ceil(q.population * 5 / 6);
+			q.population = Math.ceil(q.population * 9 / 10) - 1;
 			addOut("Ill health claims the lives of many villagers.")
 		} else if (q.health < 30) {
-			q.population = Math.ceil(q.population * 9 / 10);
+			q.population = Math.ceil(q.population * 19 / 20) - 1;
 			addOut("Ill health claims the lives of several villagers.");
 		}
 		if (q.food > 0 && q.food < q.population / 2) {
 			addOut("Your food stores are low.");
+		}
+		if (q.happy < 10) {
+			addOut("Your people are close to despair.");
 		}
 	}
 	if (q.food < 0) { q.food = 0; }

@@ -7,7 +7,7 @@ var hunt = {
 			danger: () => { return 60 - strength() / 8 - q.weapons * 10 - q.animals * 10; },
 			run: (success, harm) => {
 				if (success) {
-					q.food += 70;
+					q.food += Math.ceil(q.population * strength() / 180);
 					q.arousal += 5;
 					if (harm) {
 						q.health -= 7;
@@ -36,7 +36,7 @@ var hunt = {
 			danger: () => { return 60 - strength() / 4 - q.weapons * 10 - (q.blademouthFighters ? 15 : 0); },
 			run: (success, harm) => {
 				if (success) {
-					q.food += 90;
+					q.food += Math.ceil(q.population * strength() / 200) + q.blademouths * 20;
 					q.arousal += 5;
 					if (harm) {
 						if (q.blademouths > 1) {
@@ -67,7 +67,7 @@ var hunt = {
 			danger: () => { return 60 - q.codgers * 15 - (q.codgerFighters ? 10 : 0); },
 			run: (success, harm) => {
 				if (success) {
-					q.food += 110;
+					q.food += Math.ceil(q.population * strength() / 200) + q.codgers * 30;
 					q.arousal += 5;
 					if (harm) {
 						if (q.codgers > 1) {
@@ -98,7 +98,7 @@ var hunt = {
 			danger: () => { return 60 - strength() / 4 - q.weapons * 15; },
 			run: (success, harm) => {
 				if (success) {
-					q.food += 120;
+					q.food += Math.ceil(q.population * strength() / 400) + q.spindrakes * 60;
 					q.arousal += 5;
 					if (harm) {
 						if (q.spindrakes > 1) {
