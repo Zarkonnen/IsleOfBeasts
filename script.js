@@ -1,4 +1,4 @@
-var version = "v12";
+var version = "v13";
 
 var q = {};
 q.population = 109;
@@ -71,6 +71,8 @@ q.healthPerTurn = 1;
 q.indenture = 0;
 q.selfShaping = false;
 q.canExplore = true;
+
+var playthroughs = window.localStorage.getItem("iobPlaythroughs") ? parseInt(window.localStorage.getItem("iobPlaythroughs")) : 0; 
 
 var nextPickEvent = false;
 var nextDoTurn = false;
@@ -450,6 +452,8 @@ function win(o) {
 	outcome = o;
 	evt = null
 	render();
+	playthroughs++;
+	window.localStorage.setItem("iobPlaythroughs", "" + playthroughs);
 	//outCounter++;
 }
 
@@ -459,6 +463,8 @@ function lose(o) {
 	outcome = o;
 	evt = null;
 	render();
+	playthroughs++;
+	window.localStorage.setItem("iobPlaythroughs", "" + playthroughs);
 	//outCounter++;
 }
 

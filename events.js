@@ -21,14 +21,6 @@ var startEvent = {
 			}
 		},
 		{
-			text: "Our valuables, sewn into secret pockets in our coats",
-			run: () => {
-				q.valuables += 3;
-				q.happy += 10;
-				ev(difficultyEvent);
-			}
-		},
-		{
 			text: "Our best bronze knives, axes, awls, and other tools",
 			run: () => {
 				q.tools++;
@@ -36,7 +28,17 @@ var startEvent = {
 			}
 		},
 		{
+			text: "Our valuables, sewn into secret pockets in our coats",
+			check: () => { return playthroughs > 0; },
+			run: () => {
+				q.valuables += 3;
+				q.happy += 10;
+				ev(difficultyEvent);
+			}
+		},
+		{
 			text: "As much food as we could possibly carry",
+			check: () => { return playthroughs > 1; },
 			run: () => {
 				q.food += 200;
 				q.health += 4;
@@ -46,6 +48,7 @@ var startEvent = {
 		},
 		{
 			text: "Medical herbs and their seeds",
+			check: () => { return playthroughs > 2; },
 			run: () => {
 				q.medicine++;
 				q.health += 8;
@@ -54,6 +57,7 @@ var startEvent = {
 		},
 		{
 			text: "Any friends and servants willing to follow us into exile",
+			check: () => { return playthroughs > 3; },
 			run: () => {
 				q.population += 21;
 				ev(difficultyEvent);
