@@ -1,4 +1,4 @@
-var version = "v13";
+var version = "v14";
 
 var q = {};
 q.population = 109;
@@ -71,6 +71,7 @@ q.healthPerTurn = 1;
 q.indenture = 0;
 q.selfShaping = false;
 q.canExplore = true;
+q.explores = 0;
 
 var playthroughs = window.localStorage.getItem("iobPlaythroughs") ? parseInt(window.localStorage.getItem("iobPlaythroughs")) : 0; 
 
@@ -617,3 +618,11 @@ function pickEvent(l, prefix) {
 });*/
 
 //console.log(events.length + explore.length);
+
+explore.forEach(e => {
+	e.options.forEach(o => {
+		if (o.success && o.danger) {
+			console.log(o.text);
+		}
+	});
+});

@@ -762,6 +762,7 @@ function doCareForAnimals() {
 
 function doExplore() {
 	afterAction();
+	q.explores++;
 	var ee = pickEvent(explore, "explore: ");
 	if (ee == null) {
 		q.animals++;

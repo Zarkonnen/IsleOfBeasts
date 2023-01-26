@@ -105,6 +105,19 @@ var difficultyEvent = {
 
 var events = [
 	{
+		name: "explore hint",
+		check: () => { return q.explores < 2 && q.turn > 6 && q.food > 100; },
+		important: () => { return q.explores < 2 && q.turn > 6 && q.food > 100; },
+		show: [],
+		text: "Some members of the Gure family approach the council and suggest that more scouts should be sent out to explore the isle, to find more sources of food and other resources.",
+		options: [
+			{
+				text: "You take this into consideration.",
+				run: () => { done(); }
+			}
+		]
+	},
+	{
 		name: "meadow conflict",
 		check: () => { return q.woolmouths > 1; },
 		show: ["pawl", "eshling"],
