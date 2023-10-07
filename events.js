@@ -100,6 +100,17 @@ var difficultyEvent = {
 				out(startEndText);
 			}
 		},
+		{
+			text: "Near-impossible",
+			run: () => {
+				q.difficulty = -12;
+				q.difficultyMult = 0.75;
+				q.showStats = true;
+				q.healthPerTurn = 0;
+				q.moodPerTurn = -1;
+				out(startEndText);
+			}
+		},
 	]
 };
 

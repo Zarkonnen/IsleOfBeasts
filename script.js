@@ -1,4 +1,4 @@
-var version = "v14";
+var version = "v15";
 
 var q = {};
 q.population = 109;
@@ -298,7 +298,7 @@ function rActions() {
 			as.push({t: "Reinforce Walls", f: "doReinforcedWalls"});
 		}
 	}
-	if (q.hall && q.food >= Math.ceil(q.population / 2)) {
+	if (q.hall && q.food >= Math.ceil(q.population * 3 / 2)) {
 		as.push({t: "Hold Feast", f: "doFeast"});
 	}
 	if (q.temple) {

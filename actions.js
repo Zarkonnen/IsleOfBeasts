@@ -6,7 +6,7 @@ function doForage() {
 
 function doRest() {
 	afterAction();
-	q.health += 6 + q.medicine * 4;
+	q.health += 8 + q.medicine * 4;
 	out("The villagers rest and care for the sick and wounded.");
 }
 
